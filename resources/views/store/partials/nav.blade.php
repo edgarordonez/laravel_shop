@@ -14,12 +14,26 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
+                @if(Auth::check())
                 <li>
-                    <a href="#">
+                    <a
+                        href="{{ url('/logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="fa fa-user"></i>
+                            Cerrar sessión
+                    </a>
+                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                </li>
+                @else
+                <li>
+                    <a href="{{ route('login') }}">
                     <i class="fa fa-user"></i>
                     Entra o registrate
                     </a>
                 </li>
+                @endif
                 <li>
                     <a href="{{ route('cart-show') }}">
                     <i class="fa fa-shopping-cart"></i>

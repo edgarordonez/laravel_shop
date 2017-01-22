@@ -11,6 +11,10 @@
 |
 */
 
+// Auth
+Auth::routes();
+Route::get('home', 'HomeController@index');
+
 // Home
 Route::get('/', [
   'as' => 'home',
@@ -52,3 +56,5 @@ Route::get('cart/remove', [
   'as' => 'cart-remove',
   'uses' => 'CartController@remove'
 ]);
+
+

@@ -15,10 +15,16 @@
         <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#">Entra o registrate</a>
+                    <a href="#">
+                    <i class="fa fa-user"></i>
+                    Entra o registrate
+                    </a>
                 </li>
                 <li>
-                    <a href="{{ route('cart-show') }}">Mi carrito</a>
+                    <a href="{{ route('cart-show') }}">
+                    <i class="fa fa-shopping-cart"></i>
+                    Mi carrito
+                    </a>
                 </li>
             </ul>
         </div>

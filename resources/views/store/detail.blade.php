@@ -14,7 +14,7 @@
                 <h4 class="pull-right">{{ money_format('%.2n', $product->price) }}€</h4>
                 <h4><a href="#">{{ $product->name }}</a>
                 </h4>
-                <p>{{ $product->description }}€</p>
+                <p>{{ $product->description }}</p>
                 <div class="row" style="padding-bottom: 10px;">
                     <div class="col-md-12">
                         <div class="col-xs-12 col-md-5 col-md-offset-1">
@@ -94,4 +94,6 @@
         </div>
     </div>
 </div>
+
+<hr>
 @endsection

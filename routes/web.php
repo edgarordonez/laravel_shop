@@ -15,7 +15,7 @@
 Route::get('/', [
   'as' => 'home',
   'uses' => 'StoreController@index'
-]);
+]); 
 
 // Detail product
 Route::get('product/{slug}', [
@@ -38,7 +38,17 @@ Route::get('cart/add/{product}', [
   'uses' => 'CartController@add'
 ]);
 
+Route::post('cart/update/{product}/{quantity?}', [
+  'as' => 'cart-update',
+  'uses' => 'CartController@update'
+]);
+
 Route::get('cart/delete/{product}', [
   'as' => 'cart-delete',
   'uses' => 'CartController@delete'
+]);
+
+Route::get('cart/remove', [
+  'as' => 'cart-remove',
+  'uses' => 'CartController@remove'
 ]);

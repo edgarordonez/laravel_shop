@@ -17,14 +17,14 @@ class CartController extends Controller
 
     public function show()
     {
-        $cart = \Session::get('cart');
+        $cart = $this->getCart();
         $total = $this->totalCart();
         return view('store.cart', compact('cart', 'total'));
     }
 
     public function add(Products $product)
     {
-        $cart = \Session::get('cart');
+        $cart = $this->getCart();
         $product->quantity = 1;
         $cart[$product->slug] = $product;
 
@@ -33,24 +33,52 @@ class CartController extends Controller
         return redirect()->route('cart-show');
     }
 
+    public function update(Request $request, Products $product, $quantity)
+    {
+        $cart = $this->getCart();
+        $cart[$product->slug]->quantity = $quantity;
+
+        $this->updateSessionCart($cart);
+
+        $response = array(
+            'status' => '200',
+            'msg' => 'Setting created successfully',
+        );
+
+        return \Response::json($response);        
+
+        // return redirect()->route('cart-show');
+    }
+
     public function delete(Products $product)
     {
-        $cart = \Session::get('cart');
+        $cart = $this->getCart();
         unset($cart[$product->slug]);
         $this->updateSessionCart($cart);
 
         return redirect()->route('cart-show');
     }
 
+    public function remove() 
+    {
+        \Session::forget('cart');
+        return redirect()->route('cart-show');
+    }
+
     private function totalCart()
     {
-        $cart = \Session::get('cart');
+        $cart = $this->getCart();
         $total = 0;
         foreach($cart as $product) {
             $total += $product->price * $product->quantity;
         }
 
         return $total;
+    }
+    
+    private function getCart()
+    {
+        return \Session::get('cart');
     }
 
     private function updateSessionCart($cart)

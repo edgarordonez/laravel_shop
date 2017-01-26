@@ -7,13 +7,13 @@
     </ol>
     <div class="carousel-inner">
         <div class="item">
-            <img class="slide-image" src="http://placehold.it/1200x300" alt="">
+            <img class="slide-image" src="http://www.mekkbicycles.com/pi/aa22.jpg">
         </div>
         <div class="item">
-            <img class="slide-image" src="http://placehold.it/1200x300" alt="">
+            <img class="slide-image" src="https://hoffmanbikes.com/wp-content/uploads/2016/01/winter-sale-home-banner.jpg">
         </div>
         <div class="item active">
-            <img class="slide-image" src="http://placehold.it/1200x300" alt="">
+            <img class="slide-image" src="http://www.negombo-motorcycle-tours.com/images/fl/m-1.jpg">
         </div>
     </div>
     <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">

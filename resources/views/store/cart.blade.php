@@ -65,11 +65,25 @@
             Vaciar carrito
           </button>
         </a>
-        <a href="{{ route('home') }}">
-          <button class="btn btn-success pull-right">
+        <a href="{{ route('home') }}" style="padding-left: 20px;">
+          <button class="btn btn-success">
             Seguir comprando
           </button>
         </a>
+        @if(Auth::check())
+          <a href="{{ route('payment') }}">
+            <button class="btn btn-success pull-right">
+              <i class="fa fa-paypal"></i>
+              Pagar
+            </button>
+          </a>
+        @else
+          <a href="{{ route('login') }}">
+            <button class="btn btn-success pull-right">
+              Continuar
+            </button>
+          </a>
+        @endif
       </div>
     </div>
   </div>
@@ -77,8 +91,21 @@
     <h3>Resumen de compra</h3>
     <small class="text-muted">Gastos envío estimados: 5,75€</small>
     <hr />
+    @if(Auth::check())
+      <h5>Nombre:</h5>
+      <small class="text-muted">{{ Auth::user()->name }}</small>
+      <h5>Dirección:</h5>
+      <small class="text-muted">{{ Auth::user()->address }}</small>
+      <h5>email:</h5>
+      <small class="text-muted">{{ Auth::user()->email }}</small>
+      <hr>
+    @endif
     <h4>Total: {{ money_format('%.2n', $total) }}€</h4>
   </div>
+  @elseif(\Session::get('message'))
+  <div class="alert alert-info">
+    <strong>¡Hola {{ Auth::user()->name  }}</strong> {{ \Session::get('message') }}
+  </div>  
   @else
     <div class="col-xs-12 col-md-12 text-center">
       <h1>No hay items en su carrito.</h1>

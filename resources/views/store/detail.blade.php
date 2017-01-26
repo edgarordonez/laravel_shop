@@ -17,10 +17,7 @@
                 <p>{{ $product->description }}</p>
                 <div class="row" style="padding-bottom: 10px;">
                     <div class="col-md-12">
-                        <div class="col-xs-12 col-md-5 col-md-offset-1">
-                            <a class="btn btn-primary btn-block">Añadir al carrito</a>
-                        </div>
-                        <div class="col-xs-12 col-md-5 col-md-offset-1">
+                        <div class="col-xs-12 col-md-12">
                             <a href="{{ route('cart-add', $product->slug) }}" class="btn btn-success btn-block">Comprar</a>
                         </div>
                     </div>
@@ -43,7 +40,7 @@
         <div class="well">
 
             <div class="text-right">
-                <a class="btn btn-success">Dejar review</a>
+                <a class="btn btn-default">Opinar sobre este producto</a>
             </div>
 
             <hr>

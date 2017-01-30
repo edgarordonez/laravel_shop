@@ -50,30 +50,30 @@ class PaypalController extends BaseController
 
 		$details = new Details();
 		$details->setSubtotal($this->subtotal)
-		->setShipping($this->setShipping);
+						->setShipping($this->setShipping);
 
 		$total = $this->subtotal + $this->setShipping ;
 
 		$amount = new Amount();
 		$amount->setCurrency($this->currency)
-		->setTotal($total)
-		->setDetails($details);
+					 ->setTotal($total)
+					 ->setDetails($details);
 
 		$transaction = new Transaction();
 		$transaction->setAmount($amount)
-		->setItemList($item_list)
-		->setDescription('PEDIDO | ON WHEELS')
-		->setInvoiceNumber(uniqid());
+								->setItemList($item_list)
+								->setDescription('PEDIDO | ON WHEELS')
+								->setInvoiceNumber(uniqid());
 
 		$redirect_urls = new RedirectUrls();
 		$redirect_urls->setReturnUrl(\URL::route('payment.status'))
-		->setCancelUrl(\URL::route('payment.status'));
+									->setCancelUrl(\URL::route('payment.status'));
 
 		$payment = new Payment();
 		$payment->setIntent('sale')
-		->setPayer($payer)
-		->setRedirectUrls($redirect_urls)
-		->setTransactions(array($transaction));
+						->setPayer($payer)
+						->setRedirectUrls($redirect_urls)
+						->setTransactions(array($transaction));
 
 		try {
 			$payment->create($this->_api_context);
@@ -100,7 +100,6 @@ class PaypalController extends BaseController
 	public function getPaymentStatus()
 	{
 		if(isset($_GET['paymentId'])) {
-			// Get the payment ID before session clear
 			$payment_id = $_GET['paymentId'];
 			$payment = Payment::get($payment_id, $this->_api_context);
 
@@ -136,11 +135,11 @@ class PaypalController extends BaseController
 		foreach($cart as $product){
 			$item = new Item();
 			$item->setName($product->name)
-					->setCurrency($this->currency)
-					->setSku($product->slug)
-					->setDescription($product->extract)
-					->setQuantity($product->quantity)
-					->setPrice($product->price);
+					 ->setCurrency($this->currency)
+					 ->setSku($product->slug)
+					 ->setDescription($product->extract)
+					 ->setQuantity($product->quantity)
+					 ->setPrice($product->price);
 
 			$items[] = $item;
 			$this->subtotal += $product->quantity * $product->price;
@@ -160,13 +159,13 @@ class PaypalController extends BaseController
 	    }
 	    
 	    $order = Order::create([
-	        'subtotal' => $subtotal,
-	        'shipping' => $this->setShipping,
-	        'user_id' => \Auth::user()->id
+				'subtotal' => $subtotal,
+				'shipping' => $this->setShipping,
+				'user_id' => \Auth::user()->id
 	    ]);
 	    
 	    foreach($cart as $item) {
-	        $this->saveOrderItem($item, $order->id);
+				$this->saveOrderItem($item, $order->id);
 	    }
 
 			\Session::forget('cart');

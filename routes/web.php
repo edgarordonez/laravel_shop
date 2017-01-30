@@ -13,6 +13,19 @@
 
 /*
 |--------------------------------------------------------------------------
+| DEPENDENCY INJECTION
+|--------------------------------------------------------------------------
+*/
+Route::bind('product', function($slug) {
+  return App\Products::where('slug', $slug)->first();
+});
+
+Route::bind('category', function($category) {
+  return App\Category::find($category);
+});
+
+/*
+|--------------------------------------------------------------------------
 | AUTH
 |--------------------------------------------------------------------------
 */
@@ -43,10 +56,6 @@ Route::get('product/{slug}', [
 | CART
 |--------------------------------------------------------------------------
 */
-Route::bind('product', function($slug) {
-  return App\Products::where('slug', $slug)->first();
-});
-
 Route::get('cart/show', [
   'as' => 'cart-show',
   'uses' => 'CartController@show'
@@ -72,7 +81,6 @@ Route::get('cart/remove', [
   'uses' => 'CartController@remove'
 ]);
 
-
 /*
 |--------------------------------------------------------------------------
 | PAYPAL
@@ -87,3 +95,25 @@ Route::get('payment/status', array(
 	'as' => 'payment.status',
 	'uses' => 'PaypalController@getPaymentStatus',
 ));
+
+
+/*
+|--------------------------------------------------------------------------
+| DASHBOARD
+|--------------------------------------------------------------------------
+*/
+Route::get('dashboard', function() {
+  return view('dashboard.home');
+})->name('dashboard');
+
+Route::resource('dashboard/category', 'Dashboard\CategoryController');  
+Route::resource('dashboard/product', 'Dashboard\ProductController');  
+
+
+/*
+Route::group(['namespace' => 'Dashboard', 'middleware' => ['auth'], 'prefix' => 'dashboard'], function() {
+  
+
+
+});
+*/

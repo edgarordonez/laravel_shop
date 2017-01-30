@@ -33,5 +33,8 @@
   </div>
   <!-- /.row -->
 
-  <hr>
+    <hr>
+    <div class="col-md-12 text-center">
+        {!! $products->render() !!}    
+    </div>  
 @endsection

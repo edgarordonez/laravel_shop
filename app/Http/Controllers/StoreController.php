@@ -11,7 +11,7 @@ class StoreController extends Controller
 
     public function index()
     {
-        $products = Products::all();
+        $products = Products::orderBy('id', 'desc')->paginate(10);
         $cart = $this->getCart();
         return view('store.store', compact('products','cart'));
     }

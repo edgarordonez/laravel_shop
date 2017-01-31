@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row">
-  <h1 style="padding-left: 15px;">Shopping Cart</h1>
+  <h1 style="padding-left: 15px;">Carrito</h1>
   <br>
   @if(count($cart))
   <div class="col-xs-12 col-md-8">
@@ -43,8 +43,8 @@
                     <i class="fa fa-refresh"></i>
                   </a>
                 </td>
-                <td>{{ money_format('%.2n', $product->price) }}€</td>
-                <td>{{ money_format('%.2n', $product->price * $product->quantity) }}€</td>
+                <td id="price_quantity_{{ $product->id }}">{{ money_format('%.2n', $product->price) }}€</td>
+                <td id="price_total_{{ $product->id }}">{{ money_format('%.2n', $product->price * $product->quantity) }}€</td>
               </tr>
           @endforeach
               <tr>
@@ -53,7 +53,7 @@
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
-              <td><strong>{{ money_format('%.2n', $total) }}€</strong></td>
+              <td><strong id="price_total_table">{{ money_format('%.2n', $total) }}€</strong></td>
               </tr>		  
           </tbody>
       </table>
@@ -100,7 +100,7 @@
       <small class="text-muted">{{ Auth::user()->email }}</small>
       <hr>
     @endif
-    <h4>Total: {{ money_format('%.2n', $total) }}€</h4>
+    <h4 id="price_total_detail">Total: {{ money_format('%.2n', $total) }}€</h4>
   </div>
   @elseif(\Session::get('message'))
   <div class="alert alert-info">
@@ -108,7 +108,7 @@
   </div>  
   @else
     <div class="col-xs-12 col-md-12 text-center">
-      <h1>No hay items en su carrito.</h1>
+      <h1>No hay items en el carrito.</h1>
     </div>
   @endif 
 </div>

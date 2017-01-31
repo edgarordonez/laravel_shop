@@ -18,6 +18,14 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
+                        @if(Auth::user()->type == "admin")
+                        <li>
+                            <a href="{{ url('/dashboard') }}">
+                             <i class="fa fa-dashboard"></i>
+                                Dashboard
+                            </a>
+                        </li>                
+                        @endif            
                         <li>
                             <a
                                 href="{{ url('/logout') }}"
@@ -30,7 +38,7 @@
                             </form>
                         </li>
                     </ul>
-                </li>                
+                </li>               
                 @else
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Entrar <span class="caret"></span></a>
@@ -41,21 +49,9 @@
                 </li>
                 @endif
                 <li>
-                    <a href="{{ route('cart-show') }}">
+                    <a href="{{ route('cart-show') }}">                    
                     <i class="fa fa-shopping-cart"></i>
                     Mi carrito
-                    @if(Auth::check())
-                        @if(!empty($cart))
-                            @php $items = 0 @endphp
-                            @foreach($cart as $product)
-                               @php $items += $product->quantity @endphp
-                            @endforeach
-                            <div style="position: absolute; top: 0; right: -15px;">
-                                <i style="font-size: 1.8em; top: 12.4px; right: 4px; color: #4b8ef9; position: absolute;" class="fa fa-circle-o"></i>
-                                <p style="position: absolute; top: 14px; right: 11px; color: #4b8ef9;">{{ $items }}</p>                    
-                            </div>
-                        @endif
-                    @endif
                     </a>
                 </li>
             </ul>

@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('dashboard.category.index', compact('categories'));
+        return view("dashboard.category.index", compact("categories"));
     }
 
     /**
@@ -27,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('dashboard.category.create');
+        return view("dashboard.category.create");
     }
 
     /**
@@ -39,20 +39,20 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:categories|max:255',
-            'color' => 'required',
+            "name" => "required|unique:categories|max:255",
+            "color" => "required",
         ]);
 
         $category = Category::create([
-            'name' => $request->get('name'),
-            'slug' => str_slug($request->get('name')),
-            'description' => $request->get('description'),
-            'color' => $request->get('color')
+            "name" => $request->get("name"),
+            "slug" => str_slug($request->get("name")),
+            "description" => $request->get("description"),
+            "color" => $request->get("color")
         ]);
 
-        $message = $category ? 'categoría agregada correctamente!' : 'la categoría no pudo añadirse!';
+        $message = $category ? "categoría agregada correctamente." : "la categoría no pudo añadirse.";
 
-        return redirect()->route('category.index')->with('message', $message);        
+        return redirect()->route("category.index")->with("message", $message);        
     }
 
     /**
@@ -74,7 +74,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('dashboard.category.edit', compact('category'));
+        return view("dashboard.category.edit", compact("category"));
     }
 
     /**
@@ -87,18 +87,18 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $this->validate($request, [
-          'name' => 'required|max:255',
-          'color' => 'required',
+          "name" => "required|max:255",
+          "color" => "required",
         ]);
 
         $category->fill($request->all());
-        $category->slug = str_slug($request->get('name'));
+        $category->slug = str_slug($request->get("name"));
         
         $updated = $category->save();
         
-        $message = $updated ? 'la categoría ha sido actualizada.' : 'la categoría no pudo ser actualizada.';
+        $message = $updated ? "la categoría ha sido actualizada." : "la categoría no pudo ser actualizada.";
         
-        return redirect()->route('category.index')->with('message', $message);       
+        return redirect()->route("category.index")->with("message", $message);       
     }
 
     /**
@@ -111,8 +111,8 @@ class CategoryController extends Controller
     {
         $deleted = $category->delete();
         
-        $message = $deleted ? 'categoría eliminada correctamente.' : 'la categoría no pudo eliminarse.';
+        $message = $deleted ? "categoría eliminada correctamente." : "la categoría no pudo eliminarse.";
         
-        return redirect()->route('category.index')->with('message', $message);
+        return redirect()->route("category.index")->with("message", $message);
     }
 }

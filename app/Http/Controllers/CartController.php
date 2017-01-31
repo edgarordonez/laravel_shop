@@ -10,8 +10,8 @@ class CartController extends Controller
 
     public function __construct()
     {
-        if(!\Session::has('cart')) {
-           \Session::put('cart', array()); 
+        if(!\Session::has("cart")) {
+           \Session::put("cart", array()); 
         }
     }
 
@@ -19,7 +19,8 @@ class CartController extends Controller
     {
         $cart = $this->getCart();
         $total = $this->totalCart();
-        return view('store.cart', compact('cart', 'total'));
+
+        return view("store.cart", compact("cart", "total"));
     }
 
     public function add(Products $product)
@@ -30,25 +31,34 @@ class CartController extends Controller
 
         $this->updateSessionCart($cart);
 
-        return redirect()->route('cart-show');
+        return redirect()->route("cart-show");
     }
 
     public function update(Request $request, Products $product, $quantity)
     {
-        if($quantity > 0) {
-            $cart = $this->getCart();
-            $cart[$product->slug]->quantity = $quantity;
-
-            $this->updateSessionCart($cart);
-
+        if($quantity <= 0) {
             $response = array(
-                'status' => '200',
-                'msg' => 'Setting created successfully',
-                'request' => $request
+                "status" => "400",
+                "msg" => "error bad data"
             );
 
             return \Response::json($response);            
         }
+
+        $cart = $this->getCart();
+        $cart[$product->slug]->quantity = $quantity;
+        $this->updateSessionCart($cart);
+        $total = $this->totalCart();
+
+        $response = array(
+            "status" => "200",
+            "msg" => "setting created successfully",
+            "data" => [
+                "total" => $total
+            ]
+        );
+
+        return \Response::json($response);
     }
 
     public function delete(Products $product)
@@ -57,13 +67,13 @@ class CartController extends Controller
         unset($cart[$product->slug]);
         $this->updateSessionCart($cart);
 
-        return redirect()->route('cart-show');
+        return redirect()->route("cart-show");
     }
 
     public function remove() 
     {
-        \Session::forget('cart');
-        return redirect()->route('cart-show');
+        \Session::forget("cart");
+        return redirect()->route("cart-show");
     }
 
     private function totalCart()
@@ -79,12 +89,11 @@ class CartController extends Controller
     
     private function getCart()
     {
-        return \Session::get('cart');
+        return \Session::get("cart");
     }
 
     private function updateSessionCart($cart)
     {
-        \Session::put('cart', $cart);
+        \Session::put("cart", $cart);
     }
-
 }

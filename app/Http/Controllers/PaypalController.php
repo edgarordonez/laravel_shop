@@ -25,23 +25,21 @@ use App\OrderItem;
 class PaypalController extends BaseController
 {
 	private $_api_context;
-	private $currency = 'EUR';
+	private $currency = "EUR";
 	private $setShipping = 5.75;
 	private $subtotal = 0;
 
 	public function __construct()
 	{
-		// SETUP PayPal API CONTEXT
-		$paypal_conf = \Config::get('paypal');
-		$this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_conf['client_id'], $paypal_conf['secret']));
-		$this->_api_context->setConfig($paypal_conf['settings']);
+		$paypal_conf = \Config::get("paypal");
+		$this->_api_context = new ApiContext(new OAuthTokenCredential($paypal_conf["client_id"], $paypal_conf["secret"]));
+		$this->_api_context->setConfig($paypal_conf["settings"]);
 	}
 
 	public function postPayment()
 	{
-    
 		$payer = new Payer();
-		$payer->setPaymentMethod('paypal');
+		$payer->setPaymentMethod("paypal");
 
 		$items = $this->createItems();
 
@@ -52,9 +50,8 @@ class PaypalController extends BaseController
 		$details->setSubtotal($this->subtotal)
 						->setShipping($this->setShipping);
 
-		$total = $this->subtotal + $this->setShipping ;
-
 		$amount = new Amount();
+		$total = $this->subtotal + $this->setShipping ;
 		$amount->setCurrency($this->currency)
 					 ->setTotal($total)
 					 ->setDetails($details);
@@ -62,15 +59,15 @@ class PaypalController extends BaseController
 		$transaction = new Transaction();
 		$transaction->setAmount($amount)
 								->setItemList($item_list)
-								->setDescription('PEDIDO | ON WHEELS')
+								->setDescription("PEDIDO | ON WHEELS")
 								->setInvoiceNumber(uniqid());
 
 		$redirect_urls = new RedirectUrls();
-		$redirect_urls->setReturnUrl(\URL::route('payment.status'))
-									->setCancelUrl(\URL::route('payment.status'));
+		$redirect_urls->setReturnUrl(\URL::route("payment.status"))
+									->setCancelUrl(\URL::route("payment.status"));
 
 		$payment = new Payment();
-		$payment->setIntent('sale')
+		$payment->setIntent("sale")
 						->setPayer($payer)
 						->setRedirectUrls($redirect_urls)
 						->setTransactions(array($transaction));
@@ -78,59 +75,59 @@ class PaypalController extends BaseController
 		try {
 			$payment->create($this->_api_context);
 		} catch (\PayPal\Exception\PPConnectionException $ex) {
-			if (\Config::get('app.debug')) {
+			if (\Config::get("app.debug")) {
 				echo "Exception: " . $ex->getMessage() . PHP_EOL;
 				$err_data = json_decode($ex->getData(), true);
 				exit;
 			} else {
-				die('Ups! Algo salió mal');
+				die("Ups! Algo salió mal");
 			}
 		}
 
 		foreach($payment->getLinks() as $link) {
-			if($link->getRel() == 'approval_url') {
+			if($link->getRel() == "approval_url") {
 				$redirect_url = $link->getHref();
 				break;
 			}
 		}
 
-		return (isset($redirect_url)) ? \Redirect::away($redirect_url) : \Redirect::route('cart-show')->with('error', 'Ups! Error desconocido.');
+		return (isset($redirect_url)) ? \Redirect::away($redirect_url) : \Redirect::route("cart-show")->with("error", "Ups! Error desconocido.");
 	}
 
 	public function getPaymentStatus()
 	{
-		if(isset($_GET['paymentId'])) {
-			$payment_id = $_GET['paymentId'];
+		if(isset($_GET["paymentId"])) {
+			$payment_id = $_GET["paymentId"];
 			$payment = Payment::get($payment_id, $this->_api_context);
 
-			$payerId = \Request::get('PayerID');
-			$token = \Request::get('token');
+			$payerId = \Request::get("PayerID");
+			$token = \Request::get("token");
 			
 			if (empty($payerId) || empty($token)) {
-				return \Redirect::route('cart-show')->with('message', 'hubo un problema al intentar pagar con Paypal');
+				return \Redirect::route("cart-show")->with("message", "hubo un problema al intentar pagar con Paypal");
 			}
 
 			$execution = new PaymentExecution();
-			$execution->setPayerId(\Request::get('PayerID'));
+			$execution->setPayerId(\Request::get("PayerID"));
 
-			//Execute the payment
+			// Execute the payment
 			$result = $payment->execute($execution, $this->_api_context);
 
-			if ($result->getState() == 'approved') {
+			if ($result->getState() == "approved") {
 				$this->saveOrder();
-				return \Redirect::route('cart-show')->with('message', 'tu compra ha sido realizada de forma correcta');
+				return \Redirect::route("cart-show")->with("message", "tu compra ha sido realizada de forma correcta");
 			} else {
-				return \Redirect::route('cart-show')->with('message', 'tu compra fue cancelada! :( Esperamos verte pronto...');
+				return \Redirect::route("cart-show")->with("message", "tu compra fue cancelada! :( Esperamos verte pronto...");
 			}
 		} else {
-				return \Redirect::route('cart-show')->with('message', 'ha ocurrido un error! :( Esperamos que vuelvas pronto...');
+				return \Redirect::route("cart-show")->with("message", "ha ocurrido un error! :( Esperamos que vuelvas pronto...");
 		}
 	}
 
 	private function createItems()
 	{
 		$items = array();
-		$cart = \Session::get('cart');
+		$cart = \Session::get("cart");
 
 		foreach($cart as $product){
 			$item = new Item();
@@ -151,7 +148,7 @@ class PaypalController extends BaseController
 
 	private function saveOrder()
 	{
-			$cart = \Session::get('cart');
+			$cart = \Session::get("cart");
 	    $subtotal = 0;
 
 	    foreach($cart as $item){
@@ -159,25 +156,25 @@ class PaypalController extends BaseController
 	    }
 	    
 	    $order = Order::create([
-				'subtotal' => $subtotal,
-				'shipping' => $this->setShipping,
-				'user_id' => \Auth::user()->id
+				"subtotal" => $subtotal,
+				"shipping" => $this->setShipping,
+				"user_id" => \Auth::user()->id
 	    ]);
 	    
 	    foreach($cart as $item) {
 				$this->saveOrderItem($item, $order->id);
 	    }
 
-			\Session::forget('cart');
+			\Session::forget("cart");
 	}
 	
 	private function saveOrderItem($item, $order_id)
 	{
 		OrderItem::create([
-			'quantity' => $item->quantity,
-			'price' => $item->price,
-			'product_id' => $item->id,
-			'order_id' => $order_id
+			"quantity" => $item->quantity,
+			"price" => $item->price,
+			"product_id" => $item->id,
+			"order_id" => $order_id
 		]);
 	}
 }

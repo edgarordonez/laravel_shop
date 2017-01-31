@@ -35,19 +35,20 @@ class CartController extends Controller
 
     public function update(Request $request, Products $product, $quantity)
     {
-        $cart = $this->getCart();
-        $cart[$product->slug]->quantity = $quantity;
+        if($quantity > 0) {
+            $cart = $this->getCart();
+            $cart[$product->slug]->quantity = $quantity;
 
-        $this->updateSessionCart($cart);
+            $this->updateSessionCart($cart);
 
-        $response = array(
-            'status' => '200',
-            'msg' => 'Setting created successfully',
-        );
+            $response = array(
+                'status' => '200',
+                'msg' => 'Setting created successfully',
+                'request' => $request
+            );
 
-        return \Response::json($response);        
-
-        // return redirect()->route('cart-show');
+            return \Response::json($response);            
+        }
     }
 
     public function delete(Products $product)

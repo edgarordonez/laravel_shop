@@ -102,18 +102,11 @@ Route::get('payment/status', array(
 | DASHBOARD
 |--------------------------------------------------------------------------
 */
-Route::get('dashboard', function() {
-  return view('dashboard.home');
-})->name('dashboard');
+Route::group(['namespace' => 'Dashboard', 'middleware' => ['AuthDashboard'], 'prefix' => 'dashboard'], function() {
+  Route::get('/', function() {
+    return view('dashboard.home');
+  })->name('dashboard');
 
-Route::resource('dashboard/category', 'Dashboard\CategoryController');  
-Route::resource('dashboard/product', 'Dashboard\ProductController');  
-
-
-/*
-Route::group(['namespace' => 'Dashboard', 'middleware' => ['auth'], 'prefix' => 'dashboard'], function() {
-  
-
-
+  Route::resource('category', 'CategoryController');  
+  Route::resource('product', 'ProductController');
 });
-*/

@@ -11,8 +11,8 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Bootstrap Core CSS -->
-  <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-
+  <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet">
+  
   <!-- Custom CSS -->
   <link href="{{ asset('css/heroic-features.css') }}" rel="stylesheet">
 

@@ -30,7 +30,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('cart-show') }}">
+                    <a href="{{ route('user.index') }}">
                     Usuarios
                     </a>
                 </li>                                               

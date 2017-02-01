@@ -56,7 +56,7 @@ class ProductController extends Controller
         $product = Products::create($data);
         $message = $product ? "el producto ha sido agregado correctamente." : "el producto no pudo agregarse.";
         
-        return redirect()->route("dashboard.product.index")->with("message", $message);
+        return redirect()->route("product.index")->with("message", $message);
     }
 
     /**
@@ -99,7 +99,7 @@ class ProductController extends Controller
         $updated = $product->save();
         $message = $updated ? "el producto ha sido actualizado." : "el producto no pudo actualizarse.";
         
-        return redirect()->route("dashboard.product.index")->with("message", $message);
+        return redirect()->route("product.index")->with("message", $message);
     }
     
     /**
@@ -113,6 +113,6 @@ class ProductController extends Controller
         $deleted = $product->delete();
         $message = $deleted ? "producto eliminado correctamente." : "el producto no pudo eliminarse.";
 
-        return redirect()->route("dashboard.product.index")->with("message", $message);
+        return redirect()->route("product.index")->with("message", $message);
     }
 }

@@ -2,15 +2,15 @@
 
 @section('content')
   <h1>
-    Productos <small>[Agregar producto]</small>
+    Usuarios <small>[Agregar usuario]</small>
   </h1>
   <div class="row text-center">
     <div class="col-md-offset-3 col-md-6">
       @include('dashboard.partials.errors')    
       <div class="well">
-        {!! Form::open(['route'=>'product.store']) !!}
-            @include('dashboard.product.form')
-        {!! Form::close() !!}      
+          {!! Form::open(['route'=>'user.store']) !!}
+              @include('dashboard.user.form')
+          {!! Form::close() !!}    
       </div>
     </div>
   </div>

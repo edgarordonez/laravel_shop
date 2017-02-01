@@ -2,15 +2,15 @@
 
 @section('content')
   <h1>
-    Productos <small>[Editar producto]</small>
+    Usuarios <small>[Editar usuario]</small>
   </h1>
   <div class="row text-center">
     <div class="col-md-offset-3 col-md-6">
       @include('dashboard.partials.errors')    
       <div class="well">
-        {!! Form::model($product, ['route' => ['product.update', $product->slug]]) !!}
+        {!! Form::model($user, ['route' => ['user.update', $user]]) !!}
         {{ Form::hidden('_method', 'PUT') }}
-            @include('dashboard.product.form')
+            @include('dashboard.user.form')
         {!! Form::close() !!}      
       </div>
     </div>

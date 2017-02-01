@@ -24,6 +24,10 @@ Route::bind('category', function($category) {
   return App\Category::find($category);
 });
 
+Route::bind('user', function($user) {
+  return App\User::find($user);
+});
+
 /*
 |--------------------------------------------------------------------------
 | AUTH
@@ -109,4 +113,5 @@ Route::group(['namespace' => 'Dashboard', 'middleware' => ['AuthDashboard'], 'pr
 
   Route::resource('category', 'CategoryController');  
   Route::resource('product', 'ProductController');
+  Route::resource('user', 'UserController');
 });

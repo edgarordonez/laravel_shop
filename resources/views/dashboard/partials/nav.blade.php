@@ -25,7 +25,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('cart-show') }}">
+                    <a href="{{ route('order.index') }}">
                     Pedidos
                     </a>
                 </li>

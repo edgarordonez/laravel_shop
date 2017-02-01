@@ -20,7 +20,9 @@
 
   <!-- Custom CSS DASH -->
   <link href="{{ asset('css/dashboard/main.css') }}" rel="stylesheet">
-
+  
+  <!-- Modal React CSS -->
+  <link href="{{ asset('css/dashboard/main.d41d8cd9.css') }}" rel="stylesheet">
 </head>
 <body>
   {{ setlocale(LC_MONETARY, 'es_ES') }}

@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
+
+Route::get('/orders/{order_id}', function (Request $request, $order_id) {
+    return App\OrderItem::with("product")->where("order_id", $order_id)->get();
+});

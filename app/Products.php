@@ -13,4 +13,9 @@ class Products extends Model
     {
         return $this->belongsTo("App\Category");
     }
+
+    public function order_item()
+    {
+        return $this->hasOne("App\OrderItem");
+    }    
 }

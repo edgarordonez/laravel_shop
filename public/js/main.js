@@ -18,6 +18,7 @@ $(document).ready(function () {
     let elementPriceTotalProduct = $(`#price_total_${id}`)
     let elementSubtotalTable = $('#price_total_table')
     let elementSubtotalDetail = $('#price_total_detail')
+    let badge = $('.badge')
 
     $.ajax({
       url: `${href}/${quantity}`,
@@ -28,12 +29,12 @@ $(document).ready(function () {
       },
       success: function (response) {
         if (response.status === '200') {
+          badge.html(response.data.itemsQuantity)
           let priceProductTotal = Number(elementPriceProduct.html().slice(0, -1)) * Number(quantity)
           elementPriceTotalProduct.html(`${priceProductTotal.toFixed(2)}€`)
 
           elementSubtotalTable.html(`${response.data.total.toFixed(2)}€`)
           elementSubtotalDetail.html(`Total: ${response.data.total.toFixed(2)}€`)
-          // window.location.href = '/cart/show'
         }
       }
     })

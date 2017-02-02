@@ -20,9 +20,7 @@
 
   <!-- Custom CSS DASH -->
   <link href="{{ asset('css/dashboard/main.css') }}" rel="stylesheet">
-  
-  <!-- Modal React CSS -->
-  <link href="{{ asset('css/dashboard/main.d41d8cd9.css') }}" rel="stylesheet">
+
 </head>
 <body>
   {{ setlocale(LC_MONETARY, 'es_ES') }}
@@ -40,7 +38,7 @@
   <!-- Bootstrap Core JavaScript -->
   <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
-  <!-- Main JS -->
-  <script src="{{ asset('js/dashboard/main.js') }}"></script>
+  <!-- Modal React JS -->
+  <script src="{{ asset('js/dashboard/67786553.js') }}"></script>
 </body>
 </html>

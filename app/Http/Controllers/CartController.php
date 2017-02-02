@@ -18,7 +18,7 @@ class CartController extends Controller
     public function show()
     {
         $cart = $this->getCart();
-        $total = $this->totalCart();
+        $total = $this->totalCart()["total"];
 
         return view("store.cart", compact("cart", "total"));
     }
@@ -48,13 +48,13 @@ class CartController extends Controller
         $cart = $this->getCart();
         $cart[$product->slug]->quantity = $quantity;
         $this->updateSessionCart($cart);
-        $total = $this->totalCart();
-
+        $infoCart = $this->totalCart();
         $response = array(
             "status" => "200",
             "msg" => "setting created successfully",
             "data" => [
-                "total" => $total
+                "total" => $infoCart["total"],
+                "itemsQuantity" => $infoCart["itemsQuantity"]
             ]
         );
 
@@ -80,11 +80,16 @@ class CartController extends Controller
     {
         $cart = $this->getCart();
         $total = 0;
+        $itemsQuantity = 0;
         foreach($cart as $product) {
+            $itemsQuantity += $product->quantity;
             $total += $product->price * $product->quantity;
         }
 
-        return $total;
+        return [
+            "total" => $total,
+            "itemsQuantity" => $itemsQuantity
+        ];
     }
     
     private function getCart()

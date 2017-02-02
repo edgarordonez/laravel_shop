@@ -52,6 +52,15 @@
                     <a href="{{ route('cart-show') }}">                    
                     <i class="fa fa-shopping-cart"></i>
                     Mi carrito
+                   @if(!empty($cart))
+                   @php 
+                    $value = 0;
+                    foreach($cart as $item) {
+                        $value += $item->quantity;
+                    }
+                   @endphp
+                    <span class="badge">{{ $value }}</span>                    
+                   @endif                  
                     </a>
                 </li>
             </ul>

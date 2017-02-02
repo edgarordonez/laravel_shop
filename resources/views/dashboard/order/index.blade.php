@@ -32,9 +32,8 @@
                 {!! Form::close() !!}
                 </td>
                 <td>
-                  <a href="#" class="btn btn-primary btn-modal" data-order="{{ $order->id }}" data-toggle="modal" data-target="#reactModal">                
-                    <i class="fa fa-pencil"></i>
-                  </a>
+                  <!-- COMPONENTE DE REACT (Incluyo el código en una subscarpeta dentro de resources) -->
+                  <div class="modal-react" data-order="{{ $order->id }}"></div>
                 </td>
                 <td>{{ Date::parse($order->created_at)->diffForHumans() }}</td>             
                 <td>{{ $order->user->name . " " . $order->user->last_name }}</td>
@@ -59,5 +58,5 @@
     <div class="col-md-12 text-center">
       {!! $orders->render() !!}    
     </div>
-    @include('dashboard.order.modal')    
 @endsection
+ 

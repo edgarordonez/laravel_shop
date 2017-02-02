@@ -1,3 +1,6 @@
+a.nounderline:hover {
+  text-decoration: none!important;
+}
 .flex-container {
   padding: 0;
   margin: 0;
@@ -8,7 +11,7 @@
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .flex-item {
@@ -17,16 +20,27 @@
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  -webkit-flex-flow: row wrap;
+  -webkit-flex-flow: column wrap;
   justify-content: center;
   align-items: center;
-  background: rgba(204, 204, 204, 0.36);
+  background: rgba(33, 150, 243, 0.82);
+  border-radius: 10px;
   padding: 5px;
-  width: 400px;
-  height: 400px;
-  margin: 50px 0px;
-  line-height: 150px;
-  color: #222222;
+  width: 272px;
+  height: 272px;
+  margin: 10px 0;
+  color: #ffffff;
   font-size: 2.5em;
   text-align: center;
+  cursor: pointer;
+}
+
+i {
+  margin-right: 10px;
+}
+
+@media (min-width: 768px) {
+  .flex-item {
+    margin: 50px 6px;
+  }
 }

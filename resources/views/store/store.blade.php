@@ -19,8 +19,8 @@
                 <img src="{{ $product->image }}">
             </a>
             <div class="caption">
-                <h3>{{ $product->name }}</h3>
-                <p>{{ $product->extract }}</p>
+                <h3>{{ str_limit($product->name, $limit = 25, $end = '...') }}</h3>
+                <p>{{ str_limit($product->extract, $limit = 60, $end = '...') }}</p>
                 <p>Precio: {{ money_format('%.2n', $product->price) }}€</p>
                 <p>
                     <a href="{{ route('cart-add', $product->slug) }}" class="btn btn-primary">Comprar</a>

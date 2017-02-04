@@ -10,15 +10,11 @@
       <form class="form-horizontal" role="form">
 
         <div class="form-group">
-          <label  class="col-sm-2 control-label" for="comment">Valoración:</label>
+          <label  class="col-sm-2 control-label" for="input-1">Valoración:</label>
           <div class="col-md-10">
-            <label class="radio-inline"><input type="radio" name="puntuation" value="1">1 <i class="fa fa-star" aria-hidden="true"></i></label>
-            <label class="radio-inline"><input type="radio" name="puntuation" value="2">2 <i class="fa fa-star" aria-hidden="true"></i></label>
-            <label class="radio-inline"><input type="radio" name="puntuation" value="3">3 <i class="fa fa-star" aria-hidden="true"></i></label>
-            <label class="radio-inline"><input type="radio" name="puntuation" value="4">4 <i class="fa fa-star" aria-hidden="true"></i></label>          
-            <label class="radio-inline"><input type="radio" name="puntuation" value="5">5 <i class="fa fa-star" aria-hidden="true"></i></label>                                
+            <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">                                
           </div>
-        </div>
+        </div>-
 
         <div class="form-group">
           <label  class="col-sm-2 control-label" for="comment">Opinión:</label>

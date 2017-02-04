@@ -18,6 +18,8 @@
   <!-- Custom CSS -->
   <link href="{{ asset('css/heroic-features.css') }}" rel="stylesheet">
 
+  <link href="{{ asset('bootstrap-star-rating/css/star-rating.css') }}" media="all" rel="stylesheet" type="text/css" />  
+
 </head>
 <body>
   {{ setlocale(LC_MONETARY, 'es_ES') }}
@@ -37,5 +39,9 @@
 
   <!-- Main JS -->
   <script src="{{ asset('js/main.js') }}"></script>
+
+  <!-- Star Rating JS -->
+  <script src="{{ asset('bootstrap-star-rating/js/star-rating.js') }}" type="text/javascript"></script>
+
 </body>
 </html>

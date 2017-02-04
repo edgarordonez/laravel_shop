@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\Mail;
 
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
@@ -21,6 +22,7 @@ use PayPal\Api\Transaction;
 
 use App\Order;
 use App\OrderItem;
+use App\Mail\OrderShipped;
 
 class PaypalController extends BaseController
 {
@@ -115,6 +117,7 @@ class PaypalController extends BaseController
 
 			if ($result->getState() == "approved") {
 				$this->saveOrder();
+				$this->sendMailUser();
 				return \Redirect::route("cart-show")->with("message", "tu compra ha sido realizada de forma correcta");
 			} else {
 				return \Redirect::route("cart-show")->with("message", "tu compra fue cancelada! :( Esperamos verte pronto...");
@@ -176,5 +179,11 @@ class PaypalController extends BaseController
 			"product_id" => $item->id,
 			"order_id" => $order_id
 		]);
+	}
+
+	private function sendMailUser()
+	{
+		$user = \Auth::user();
+ 		Mail::to($user->email)->send(new OrderShipped($user));		
 	}
 }

@@ -7,28 +7,40 @@
       </div>
       <div class='modal-body'>
 
-      <form class="form-horizontal" role="form">
-
+      <!-- <form class="form-horizontal" role="form"> -->
+      {!! Form::open(['class' => 'form-horizontal', 'route' => ['comments-product', $product->slug, Auth::user()]]) !!}
         <div class="form-group">
-          <label  class="col-sm-2 control-label" for="input-1">Valoración:</label>
+          <label class="col-sm-2 control-label" for="rating">Valoración:</label>
           <div class="col-md-10">
-            <input id="input-1" name="input-1" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">                                
+            <input id="rating" name="rating" class="rating rating-loading" data-min="0" data-max="5" data-step="1" data-size="xs">                                
           </div>
-        </div>-
+        </div>
 
         <div class="form-group">
-          <label  class="col-sm-2 control-label" for="comment">Opinión:</label>
+          <label  class="col-sm-2 control-label" for="message">Opinión:</label>
           <div class="col-sm-10">
-            <textarea style="resize:none" class="form-control" rows="5" id="comment" placeholder="Deja una opinión sobre este producto"></textarea>
+            {!! 
+                Form::textarea(
+                  'message', 
+                  null, 
+                  array(
+                      'style' => 'resize:none',    
+                      'class'=>'form-control',
+                      'rows' => '5',
+                      'placeholder' => 'Deja una opinión sobre este producto'
+                  )
+                )
+            !!}            
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-group-justified btn-primary">Enviar</button>
+            {!! Form::submit('Enviar', array('class' => 'btn btn-group-justified btn-primary')) !!}            
           </div>
         </div>
-      </form>
+      {!! Form::close() !!}          
+      <!-- </form> -->
 
       </div>
       <div class='modal-footer'>

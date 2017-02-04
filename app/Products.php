@@ -21,6 +21,6 @@ class Products extends Model
 
     public function comments()
     {
-        return $this->morphMany("App\Comments", "commentable");
+        return $this->morphMany("App\Comments", "commentable")->orderBy("id", "desc")->paginate(5);
     }    
 }

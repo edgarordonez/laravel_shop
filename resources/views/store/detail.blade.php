@@ -1,7 +1,9 @@
 @extends('template')
 
 @section('content')
-<div class="row">
+@include('store.partials.message')
+@include('store.partials.errors')
+<div class="row detail">
 
     <div class="col-md-6">
                 <img class="img-responsive" src="{{ $product->image }}">
@@ -24,17 +26,6 @@
                 </div>
             </div>
 
-            <div class="ratings">
-                <p class="pull-right">3 reviews</p>
-                <p>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                    4.0 stars
-                </p>
-            </div>
         </div>
 
         <div class="well">
@@ -44,14 +35,15 @@
             </div>
             @include('store.modalForm')
             <hr>
-            @foreach($product->comments as $coment)
-            <div class="row">
+            @foreach($product->comments() as $coment)
+            <div class="row"> 
                 <div class="col-md-12">
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star-empty"></span>
+                    <div class="ratings">
+                        <p>
+                            <input style="display: inline-block;" class="rating rating-loading ratingProduct" value="{{ $coment->rating }}" data-size="xs"> 
+                            {{ $coment->rating }} estrellas
+                        </p>
+                    </div>
                     {{ $coment->user->name }}
                     <span class="pull-right">{{ Date::parse($coment->created_at)->diffForHumans() }}</span>
                     <p>{{ $coment->message }}</p>
@@ -59,6 +51,11 @@
             </div>
             <hr>
             @endforeach
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    {!! $product->comments()->render() !!}
+                </div>
+            </div>
         </div>
     </div>
 </div>

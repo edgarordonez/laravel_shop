@@ -12,6 +12,18 @@ body {
     margin: 50px 0;
 }
 
+.row.detail {
+    margin-top: 50px;
+}
+
+.ratings .rating-xs {
+    display: inline-block;
+}
+
+.rating-disabled .rating {
+    cursor: default!important;
+}
+
 .hero-spacer {
     margin-top: 50px;
 }

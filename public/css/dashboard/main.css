@@ -1,4 +1,7 @@
-a.nounderline:hover {
+a.customlink {
+  color: #ffffff;
+}
+a.customlink:hover {
   text-decoration: none!important;
 }
 .flex-container {

@@ -2,29 +2,29 @@
 
 @section('content')
 <ul class="flex-container">
-  <a href="{{ route('category.index') }}" class="nounderline">
     <li class="flex-item">
-      <i class="fa fa-bookmark"></i>
-      Categorías
+      <a href="{{ route('category.index') }}" class="customlink">
+          <i class="fa fa-bookmark"></i>
+          Categorías
+      </a>
     </li>
-  </a>
-  <a href="{{ route('product.index') }}" class="nounderline">
     <li class="flex-item">
-      <i class="fa fa-shopping-cart"></i>   
-      Productos
+      <a href="{{ route('product.index') }}" class="customlink">
+          <i class="fa fa-shopping-cart"></i>   
+          Productos
+      </a>
     </li>
-  </a>
-  <a href="{{ route('order.index') }}" class="nounderline">
     <li class="flex-item">
-      <i class="fa fa-cc-paypal"></i>
-      Pedidos
+      <a href="{{ route('order.index') }}" class="customlink">
+          <i class="fa fa-cc-paypal"></i>
+          Pedidos
+      </a>
     </li>
-  </a>
-  <a href="{{ route('user.index') }}" class="nounderline">
     <li class="flex-item">
-      <i class="fa fa-user-circle"></i>
-      Usuarios
+    <a href="{{ route('user.index') }}" class="customlink">
+        <i class="fa fa-user-circle"></i>
+        Usuarios
+    </a>
     </li>
-  </a>
 </ul>
 @endsection

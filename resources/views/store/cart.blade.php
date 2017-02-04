@@ -1,6 +1,7 @@
 @extends('template')
 
 @section('content')
+@include('store.partials.message')
 <div class="row">
   <h1 style="padding-left: 15px;">Carrito</h1>
   <br>
@@ -102,10 +103,6 @@
     @endif
     <h4 id="price_total_detail">Total: {{ money_format('%.2n', $total) }}€</h4>
   </div>
-  @elseif(\Session::get('message'))
-  <div class="alert alert-info">
-    <strong>¡Hola {{ Auth::user()->name  }}</strong> {{ \Session::get('message') }}
-  </div>  
   @else
     <div class="col-xs-12 col-md-12 text-center">
       <h1>No hay items en el carrito.</h1>

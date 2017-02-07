@@ -22,7 +22,7 @@
 
 </head>
 <body>
-  {{ setlocale(LC_MONETARY, 'es_ES') }}
+  @php setlocale(LC_MONETARY, 'es_ES') @endphp
   @include('store.partials.nav')
 
   <div class="container">

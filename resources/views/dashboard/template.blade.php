@@ -23,7 +23,7 @@
 
 </head>
 <body>
-  {{ setlocale(LC_MONETARY, 'es_ES') }}
+  @php setlocale(LC_MONETARY, 'es_ES') @endphp
   @include('dashboard.partials.nav')
 
   <div class="container">
@@ -37,8 +37,5 @@
 
   <!-- Bootstrap Core JavaScript -->
   <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-
-  <!-- Modal React JS -->
-  <script src="{{ asset('js/dashboard/67786553.js') }}"></script>
 </body>
 </html>

@@ -24,7 +24,7 @@
           <tbody>
           @foreach($users as $user)
               <tr>
-                <td>
+                <td width="50">
                 {!! Form::open(['route' => ['user.destroy', $user]]) !!}
                 {{ Form::hidden('_method', 'DELETE') }}
                 <button onClick="return confirm('¿Esta seguro?')" class="btn btn-danger">
@@ -32,7 +32,7 @@
                 </button>                 
                 {!! Form::close() !!}
                 </td>
-                <td>
+                <td width="50">
                   <a href="{{ route('user.edit', $user) }}" class="btn btn-primary">
                     <i class="fa fa-pencil"></i>
                   </a>

@@ -1,12 +1,11 @@
 var $
 $(document).ready(function () {
-
   $('.ratingProduct').rating({displayOnly: true})
 
   $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
   })
 
   // Update items cart

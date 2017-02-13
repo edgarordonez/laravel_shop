@@ -25,6 +25,9 @@ class CommentsController extends Controller
             "rating" => $request->get("rating")
         ]);
 
+        $product->rating = Comments::where('commentable_id', $product->id)->avg('rating');
+        $product->save();
+
         $message = $comment ? "gracias por tu opinón." : "lo sentimos, tu opinión no pudo añadirse.";
         return redirect()->route("product-detail", $product->slug)->with("message", $message);           
     }

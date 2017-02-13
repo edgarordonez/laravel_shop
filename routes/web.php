@@ -122,5 +122,5 @@ Route::group(['namespace' => 'Dashboard', 'middleware' => ['AuthDashboard'], 'pr
   Route::resource('category', 'CategoryController');  
   Route::resource('product', 'ProductController');
   Route::resource('user', 'UserController');
-  Route::resource('order', 'OrderController');  
+  Route::resource('order', 'OrderController');
 });

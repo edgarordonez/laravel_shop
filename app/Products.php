@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Products extends Model
 {
     protected $table = "products";
-    protected $fillable = ['name', 'slug', 'description', 'extract', 'image', 'visible', 'price', 'category_id'];
+    protected $fillable = ['name', 'slug', 'description', 'extract', 'image', 'rating', 'visible', 'price', 'category_id'];
         
     public function category()
     {
@@ -22,5 +22,5 @@ class Products extends Model
     public function comments()
     {
         return $this->morphMany("App\Comments", "commentable")->orderBy("id", "desc")->paginate(5);
-    }    
+    }
 }

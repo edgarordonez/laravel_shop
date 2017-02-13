@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Products;
 use App\Cart;
+use App\Comments;
+
+use Debugbar;
 
 class StoreController extends Controller
 {
@@ -19,7 +22,8 @@ class StoreController extends Controller
     public function show($slug)
     {
         $product = Products::where("slug", $slug)->first();
-        $cart = $this->getCart();      
+        $product->opinions = Comments::where('commentable_id', $product->id)->count('rating');
+        $cart = $this->getCart();
         return view("store.detail", compact("product", "cart"));
     }
 

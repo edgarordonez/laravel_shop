@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Debugbar;
 use App\Products;
 use App\Cart;
 use App\Comments;
-
-use Debugbar;
 
 class StoreController extends Controller
 {

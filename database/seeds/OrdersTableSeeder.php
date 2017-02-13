@@ -13,19 +13,33 @@ class OrdersTableSeeder extends Seeder
     {
         $data = array(
             [
-                "subtotal" => 1249.00,
+                "subtotal" => 774.99,
                 "shipping" => 5.75,
                 "user_id" => 1,
                 "created_at" => new DateTime,
                 "updated_at" => new DateTime
             ],
             [
-                "subtotal" => 779.00,
+                "subtotal" => 623.99,
                 "shipping" => 5.75,
                 "user_id" => 2,
                 "created_at" => new DateTime,
                 "updated_at" => new DateTime
-            ]            
+            ],            
+            [
+                "subtotal" => 774.99,
+                "shipping" => 5.75,
+                "user_id" => 3,
+                "created_at" => new DateTime,
+                "updated_at" => new DateTime
+            ],
+            [
+                "subtotal" => 623.99,
+                "shipping" => 5.75,
+                "user_id" => 4,
+                "created_at" => new DateTime,
+                "updated_at" => new DateTime
+            ]              
         );
         
         DB::table('orders')->insert($data);  

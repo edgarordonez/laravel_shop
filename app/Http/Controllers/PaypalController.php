@@ -6,6 +6,7 @@ use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Mail;
+use Debugbar;
 
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
@@ -78,9 +79,7 @@ class PaypalController extends BaseController
 			$payment->create($this->_api_context);
 		} catch (\PayPal\Exception\PPConnectionException $ex) {
 			if (\Config::get("app.debug")) {
-				echo "Exception: " . $ex->getMessage() . PHP_EOL;
-				$err_data = json_decode($ex->getData(), true);
-				exit;
+				Debugbar::error("Exception: " . $ex->getMessage() . PHP_EOL);
 			} else {
 				die("Ups! Algo salió mal");
 			}
@@ -147,7 +146,6 @@ class PaypalController extends BaseController
 			
 		return $items;
 	}
-
 
 	private function saveOrder()
 	{

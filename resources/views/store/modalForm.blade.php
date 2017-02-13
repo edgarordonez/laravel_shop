@@ -6,8 +6,6 @@
         <h4 class='modal-title' id='myModalLabel'>Escribe tu opinión: </h4>
       </div>
       <div class='modal-body'>
-
-      <!-- <form class="form-horizontal" role="form"> -->
       {!! Form::open(['class' => 'form-horizontal', 'route' => ['comments-product', $product->slug, Auth::user()]]) !!}
         <div class="form-group">
           <label class="col-sm-2 control-label" for="rating">Valoración:</label>
@@ -39,9 +37,7 @@
             {!! Form::submit('Enviar', array('class' => 'btn btn-group-justified btn-primary')) !!}            
           </div>
         </div>
-      {!! Form::close() !!}          
-      <!-- </form> -->
-
+      {!! Form::close() !!}
       </div>
       <div class='modal-footer'>
         <button type='button' class='btn btn-default btn-close' data-dismiss='modal'>Cerrar</button>

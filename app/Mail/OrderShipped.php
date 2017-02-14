@@ -14,6 +14,7 @@ class OrderShipped extends Mailable
     use Queueable, SerializesModels;
 
     public $user;
+    public $pathPdf;
     /**
      * Create a new message instance.
      *
@@ -22,6 +23,7 @@ class OrderShipped extends Mailable
     public function __construct(User $user)
     {
         $this->user = $user;
+        $this->pathPdf = $pathPdf;
     }
 
     /**
@@ -31,6 +33,11 @@ class OrderShipped extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.orderShipped')->subject('OrderShipped');
+        return $this->view('emails.orderShipped')
+                    ->subject('OrderShipped')
+                    ->attach($this->pathPdf, [
+                        'as' => 'factura.pdf',
+                        'mime' => 'application/pdf',
+                    ]);
     }
 }

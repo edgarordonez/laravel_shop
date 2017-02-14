@@ -24,12 +24,12 @@ class SaveProductRequest extends FormRequest
     public function rules()
     {
         return [
-            "name"          => "required",
-            "description"   => "required",
-            "extract"       => "required",
-            "price"         => "required",
-            "image"         => "required",
-            "category_id"   => "required"
+            'name'          => 'required',
+            'description'   => 'required',
+            'extract'       => 'required',
+            'price'         => 'required',
+            'image'         => 'required',
+            'category_id'   => 'required'
         ];
     }
 }

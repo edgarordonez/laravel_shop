@@ -6,14 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    // protected $table = "orders";
-    protected $fillable = ["subtotal", "shipping", "user_id"];
-    
+    protected $fillable = ['subtotal', 'shipping', 'user_id'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo('App\User');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function order_items()
     {
         return $this->hasMany('App\OrderItem');

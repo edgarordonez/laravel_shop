@@ -124,3 +124,13 @@ Route::group(['namespace' => 'Dashboard', 'middleware' => ['AuthDashboard'], 'pr
   Route::resource('user', 'UserController');
   Route::resource('order', 'OrderController');
 });
+
+Route::get('email/pdf', function() {
+  $date = new DateTime();
+  $order = App\Order::orderBy('id','desc')->first();
+  $orderItems = App\OrderItem::where('order_id', $order->id)->orderBy('id','desc')->get();
+  $user = \Auth::user();
+  $pathPdf = "storage/pdf/factura-" . $date->format('Y-m-d-H-m-s') . ".pdf";
+
+  return view('emails.pdf', compact('user', 'order', 'orderItems'));
+});

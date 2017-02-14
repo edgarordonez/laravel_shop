@@ -2,27 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Response;
+use Session;
+
 use App\Products;
 
 class CartController extends Controller
 {
 
+    /**
+     * CartController constructor.
+     */
     public function __construct()
     {
-        if(!\Session::has("cart")) {
-           \Session::put("cart", array()); 
+        if(!Session::has('cart')) {
+           Session::put('cart', array());
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show()
     {
         $cart = $this->getCart();
-        $total = $this->totalCart()["total"];
+        $total = $this->totalCart()['total'];
 
-        return view("store.cart", compact("cart", "total"));
+        return view('store.cart', compact('cart', 'total'));
     }
 
+    /**
+     * @param Products $product
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function add(Products $product)
     {
         $cart = $this->getCart();
@@ -31,18 +43,23 @@ class CartController extends Controller
 
         $this->updateSessionCart($cart);
 
-        return redirect()->route("cart-show");
+        return redirect()->route('cart-show');
     }
 
-    public function update(Request $request, Products $product, $quantity)
+    /**
+     * @param Products $product
+     * @param $quantity
+     * @return mixed
+     */
+    public function update(Products $product, $quantity)
     {
         if($quantity <= 0) {
             $response = array(
-                "status" => "400",
-                "msg" => "error bad data"
+                'status' => '400',
+                'msg' => 'error bad data'
             );
 
-            return \Response::json($response);            
+            return Response::json($response);
         }
 
         $cart = $this->getCart();
@@ -50,32 +67,42 @@ class CartController extends Controller
         $this->updateSessionCart($cart);
         $infoCart = $this->totalCart();
         $response = array(
-            "status" => "200",
-            "msg" => "setting created successfully",
-            "data" => [
-                "total" => $infoCart["total"],
-                "itemsQuantity" => $infoCart["itemsQuantity"]
+            'status' => '200',
+            'msg' => 'setting created successfully',
+            'data' => [
+                'total' => $infoCart['total'],
+                'itemsQuantity' => $infoCart['itemsQuantity']
             ]
         );
 
-        return \Response::json($response);
+        return Response::json($response);
     }
 
+    /**
+     * @param Products $product
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function delete(Products $product)
     {
         $cart = $this->getCart();
         unset($cart[$product->slug]);
         $this->updateSessionCart($cart);
 
-        return redirect()->route("cart-show");
+        return redirect()->route('cart-show');
     }
 
-    public function remove() 
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function remove()
     {
-        \Session::forget("cart");
-        return redirect()->route("cart-show");
+        Session::forget('cart');
+        return redirect()->route('cart-show');
     }
 
+    /**
+     * @return array
+     */
     private function totalCart()
     {
         $cart = $this->getCart();
@@ -87,18 +114,24 @@ class CartController extends Controller
         }
 
         return [
-            "total" => $total,
-            "itemsQuantity" => $itemsQuantity
+            'total' => $total,
+            'itemsQuantity' => $itemsQuantity
         ];
     }
-    
+
+    /**
+     * @return mixed
+     */
     private function getCart()
     {
-        return \Session::get("cart");
+        return Session::get('cart');
     }
 
+    /**
+     * @param $cart
+     */
     private function updateSessionCart($cart)
     {
-        \Session::put("cart", $cart);
+        Session::put('cart', $cart);
     }
 }

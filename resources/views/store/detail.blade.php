@@ -1,8 +1,8 @@
 @extends('template')
 
 @section('content')
-@include('store.partials.message')
-@include('store.partials.errors')
+@include('common.message')
+@include('common.errors')
 <div class="row detail">
     <div class="col-md-6">
         <img class="img-responsive" src="{{ $product->image }}" alt="{{ $product->name }}">
@@ -44,7 +44,6 @@
             <div class="text-right">
                 <a class="btn btn-default btn-modal" data-toggle='modal' data-target="#comment">Opinar sobre este producto</a>
             </div>
-            @include('store.modalForm')
             <hr>
             @foreach($product->comments() as $coment)
             <div class="row"> 
@@ -67,6 +66,7 @@
                     {!! $product->comments()->render() !!}
                 </div>
             </div>
+        @include('store.modalForm')
         </div>
     </div>
 </div>

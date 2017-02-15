@@ -5,25 +5,29 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\User;
+use App\Order;
+use App\OrderItem;
 
 class OrderShipped extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $user;
-    public $pathPdf;
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
+    public $pathForPDF;
+
     public function __construct(User $user)
     {
         $this->user = $user;
-        $this->pathPdf = $pathPdf;
+        $date = new \DateTime();
+        $order = Order::orderBy('id','desc')->first();
+        $orderItems = OrderItem::where('order_id', $order->id)->orderBy('id','desc')->get();
+
+        $pdf = \PDF::loadView('emails.pdf', compact('user', 'order', 'orderItems'));
+        $this->pathForPDF = 'facturas/factura-' . $date->format('Y-m-d-H:i:s') . '.pdf';
+
+        \Storage::put($this->pathForPDF, $pdf->output());
     }
 
     /**
@@ -33,10 +37,10 @@ class OrderShipped extends Mailable
      */
     public function build()
     {
+        $pdf = \Storage::get($this->pathForPDF);
         return $this->view('emails.orderShipped')
                     ->subject('OrderShipped')
-                    ->attach($this->pathPdf, [
-                        'as' => 'factura.pdf',
+                    ->attachData($pdf, 'factura', [
                         'mime' => 'application/pdf',
                     ]);
     }

@@ -13,7 +13,7 @@ class Products extends Model
      */
     public function category()
     {
-        return $this->belongsTo('App\Category');
+        return $this->belongsTo(Category::class);
     }
 
     /**
@@ -21,7 +21,7 @@ class Products extends Model
      */
     public function order_item()
     {
-        return $this->hasOne('App\OrderItem');
+        return $this->hasOne(OrderItem::class);
     }
 
     /**
@@ -29,6 +29,6 @@ class Products extends Model
      */
     public function comments()
     {
-        return $this->morphMany('App\Comments', 'commentable')->orderBy('id', 'desc')->paginate(5);
+        return $this->morphMany(Comments::class, 'commentable')->orderBy('id', 'desc')->paginate(5);
     }
 }

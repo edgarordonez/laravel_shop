@@ -10,6 +10,12 @@ use App\Comments;
 
 class CommentsController extends Controller
 {
+    /**
+     * @param Request $request
+     * @param Products $product
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request, Products $product, User $user)
     {
         $this->validate($request, [

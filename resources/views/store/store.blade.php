@@ -2,6 +2,7 @@
 
 @section('content')
 @include('store.partials.slider')
+
     <div class="row">
         <div class="col-lg-12">
             <h3>Nuestros productos</h3>
@@ -31,5 +32,5 @@
     <hr>
     <div class="col-md-12 text-center">
         {!! $products->render() !!}    
-    </div>  
+    </div>
 @endsection

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
 use App\Order;
-use App\OrderItem;
 
 class OrderController extends Controller
 {
@@ -30,8 +29,8 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
         $deleted = $order->delete();
-        $message = $deleted ? "pedido eliminado correctamente." : "el pedido no pudo eliminarse.";
+        $message = $deleted ? 'pedido eliminado correctamente.' : 'el pedido no pudo eliminarse.';
         
-        return redirect()->route("order.index")->with("message", $message);
+        return redirect()->route('order.index')->with('message', $message);
     }
 }

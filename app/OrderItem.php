@@ -8,14 +8,14 @@ class OrderItem extends Model
 {
     protected $fillable = ['price', 'quantity', 'product_id', 'order_id'];
     
-    protected $timestamps = false;
+    public $timestamps = false;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function order()
     {
-        return $this->belongsTo('App\Order');
+        return $this->belongsTo(Order::class);
     }
 
     /**
@@ -23,6 +23,6 @@ class OrderItem extends Model
      */
     public function product()
     {
-        return $this->belongsTo('App\Products');
+        return $this->belongsTo(Products::class);
     }    
 }

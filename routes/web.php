@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,7 +50,7 @@ Route::get('/', [
 | DETAIL PRODUCT
 |--------------------------------------------------------------------------
 */
-Route::get('product/{slug}', [
+Route::get('product/{product}', [
   'as' => 'product-detail',
   'uses' => 'StoreController@show'
 ]);
@@ -126,11 +127,9 @@ Route::group(['namespace' => 'Dashboard', 'middleware' => ['AuthDashboard'], 'pr
 });
 
 Route::get('email/pdf', function() {
-  $date = new DateTime();
+  $user = \Auth::user();
   $order = App\Order::orderBy('id','desc')->first();
   $orderItems = App\OrderItem::where('order_id', $order->id)->orderBy('id','desc')->get();
-  $user = \Auth::user();
-  $pathPdf = "storage/pdf/factura-" . $date->format('Y-m-d-H-m-s') . ".pdf";
 
   return view('emails.pdf', compact('user', 'order', 'orderItems'));
 });

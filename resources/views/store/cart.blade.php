@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('content')
-@include('store.partials.message')
+@include('common.message')
 <div class="row">
   <h1 style="padding-left: 15px;">Carrito</h1>
   <br>
@@ -35,12 +35,7 @@
                 <td>{{ $product->name }}</td>
                 <td>
                   <input id="product_{{ $product->id }}" class="input-mini" type="number" min="1" max="10" value="{{ $product->quantity }}">
-                  <a
-                    href="javascript::void(0)"
-                    class="btn btn-default btn-update-item"
-                    data-href="{{ route('cart-update', $product->slug) }}"
-                    data-id="{{ $product->id }}"
-                  >
+                  <a href="javascript::void(0)" class="btn btn-default btn-update-item" data-href="{{ route('cart-update', $product->slug) }}" data-id="{{ $product->id }}">
                     <i class="fa fa-refresh"></i>
                   </a>
                 </td>
@@ -54,7 +49,7 @@
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
-              <td><strong id="price_total_table">{{ money_format('%.2n', $total) }}€</strong></td>
+              <td><strong id="price_total_table">{{ money_format('%.2n', $currentTotalCart) }}€</strong></td>
               </tr>		  
           </tbody>
       </table>
@@ -101,7 +96,7 @@
       <small class="text-muted">{{ Auth::user()->email }}</small>
       <hr>
     @endif
-    <h4 id="price_total_detail">Total: {{ money_format('%.2n', $total) }}€</h4>
+    <h4 id="price_total_detail">Total: {{ money_format('%.2n', $currentTotalCart) }}€</h4>
   </div>
   @else
     <div class="col-xs-12 col-md-12 text-center">

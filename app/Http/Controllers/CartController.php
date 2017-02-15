@@ -9,7 +9,6 @@ use App\Products;
 
 class CartController extends Controller
 {
-
     /**
      * CartController constructor.
      */
@@ -26,9 +25,8 @@ class CartController extends Controller
     public function show()
     {
         $cart = $this->getCart();
-        $total = $this->totalCart()['total'];
-
-        return view('store.cart', compact('cart', 'total'));
+        $currentTotalCart = $this->getCurrentStateCart()['total'];
+        return view('store.cart', compact('cart', 'currentTotalCart'));
     }
 
     /**
@@ -65,15 +63,15 @@ class CartController extends Controller
         $cart = $this->getCart();
         $cart[$product->slug]->quantity = $quantity;
         $this->updateSessionCart($cart);
-        $infoCart = $this->totalCart();
-        $response = array(
+        $currentStatusCart = $this->getCurrentStateCart();
+        $response = [
             'status' => '200',
             'msg' => 'setting created successfully',
             'data' => [
-                'total' => $infoCart['total'],
-                'itemsQuantity' => $infoCart['itemsQuantity']
+                'total' => $currentStatusCart['total'],
+                'itemsQuantity' => $currentStatusCart['itemsQuantity']
             ]
-        );
+        ];
 
         return Response::json($response);
     }
@@ -101,25 +99,6 @@ class CartController extends Controller
     }
 
     /**
-     * @return array
-     */
-    private function totalCart()
-    {
-        $cart = $this->getCart();
-        $total = 0;
-        $itemsQuantity = 0;
-        foreach($cart as $product) {
-            $itemsQuantity += $product->quantity;
-            $total += $product->price * $product->quantity;
-        }
-
-        return [
-            'total' => $total,
-            'itemsQuantity' => $itemsQuantity
-        ];
-    }
-
-    /**
      * @return mixed
      */
     private function getCart()
@@ -133,5 +112,16 @@ class CartController extends Controller
     private function updateSessionCart($cart)
     {
         Session::put('cart', $cart);
+    }
+
+    private function getCurrentStateCart()
+    {
+        $cart = $this->getCart();
+        return collect($cart)->reduce(function ($currentStateCart, $product)
+        {
+            $currentStateCart['total'] += $product->price * $product->quantity;
+            $currentStateCart['itemsQuantity'] += $product->quantity;
+            return $currentStateCart;
+        }, ['total' => 0, 'itemsQuantity' => 0]);
     }
 }

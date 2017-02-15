@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Support\Facades\Mail;
-use Debugbar;
 
+use PayPal\Exception\PayPalConnectionException;
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\Amount;
@@ -17,10 +14,8 @@ use PayPal\Api\ItemList;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
 use PayPal\Api\RedirectUrls;
-use PayPal\Api\ExecutePayment;
 use PayPal\Api\PaymentExecution;
 use PayPal\Api\Transaction;
-use PDF;
 
 use App\Order;
 use App\OrderItem;
@@ -40,7 +35,10 @@ class PaypalController extends BaseController
 		$this->_api_context->setConfig($paypal_conf['settings']);
 	}
 
-	public function postPayment()
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postPayment()
 	{
 		$payer = new Payer();
 		$payer->setPaymentMethod('paypal');
@@ -52,35 +50,35 @@ class PaypalController extends BaseController
 
 		$details = new Details();
 		$details->setSubtotal($this->subtotal)
-						->setShipping($this->setShipping);
+				->setShipping($this->setShipping);
 
 		$amount = new Amount();
 		$total = $this->subtotal + $this->setShipping ;
 		$amount->setCurrency($this->currency)
-					 ->setTotal($total)
-					 ->setDetails($details);
+				->setTotal($total)
+				->setDetails($details);
 
 		$transaction = new Transaction();
 		$transaction->setAmount($amount)
-								->setItemList($item_list)
-								->setDescription('PEDIDO | ON WHEELS')
-								->setInvoiceNumber(uniqid());
+                    ->setItemList($item_list)
+                    ->setDescription('PEDIDO | ON WHEELS')
+					->setInvoiceNumber(uniqid());
 
 		$redirect_urls = new RedirectUrls();
 		$redirect_urls->setReturnUrl(\URL::route('payment.status'))
-									->setCancelUrl(\URL::route('payment.status'));
+                        ->setCancelUrl(\URL::route('payment.status'));
 
 		$payment = new Payment();
 		$payment->setIntent('sale')
-						->setPayer($payer)
-						->setRedirectUrls($redirect_urls)
-						->setTransactions(array($transaction));
+                ->setPayer($payer)
+                ->setRedirectUrls($redirect_urls)
+                ->setTransactions(array($transaction));
 
 		try {
 			$payment->create($this->_api_context);
-		} catch (\PayPal\Exception\PPConnectionException $ex) {
+		} catch (PayPalConnectionException $ex) {
 			if (\Config::get('app.debug')) {
-				Debugbar::error('Exception: ' . $ex->getMessage() . PHP_EOL);
+				\Debugbar::error($ex->getMessage());
 			} else {
 				die('Ups! Algo salió mal');
 			}
@@ -96,7 +94,10 @@ class PaypalController extends BaseController
 		return (isset($redirect_url)) ? \Redirect::away($redirect_url) : \Redirect::route('cart-show')->with('error', 'Ups! Error desconocido.');
 	}
 
-	public function getPaymentStatus()
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getPaymentStatus()
 	{
 		if(isset($_GET['paymentId'])) {
 			$payment_id = $_GET['paymentId'];
@@ -104,6 +105,7 @@ class PaypalController extends BaseController
 
 			$payerId = \Request::get('PayerID');
 			$token = \Request::get('token');
+
 			
 			if (empty($payerId) || empty($token)) {
 				return \Redirect::route('cart-show')->with('message', 'hubo un problema al intentar pagar con Paypal');
@@ -123,54 +125,51 @@ class PaypalController extends BaseController
 				return \Redirect::route('cart-show')->with('message', 'tu compra fue cancelada! :( Esperamos verte pronto...');
 			}
 		} else {
-				return \Redirect::route('cart-show')->with('message', 'ha ocurrido un error! :( Esperamos que vuelvas pronto...');
+            return \Redirect::route('cart-show')->with('message', 'ha ocurrido un error! :( Esperamos que vuelvas pronto...');
 		}
 	}
 
 	private function createItems()
 	{
-		$items = array();
 		$cart = \Session::get('cart');
+		return collect($cart)->reduce(function ($items, $product) {
+            $item = new Item();
+            $item->setName($product->name)
+                ->setCurrency($this->currency)
+                ->setSku($product->slug)
+                ->setDescription($product->extract)
+                ->setQuantity($product->quantity)
+                ->setPrice($product->price);
 
-		foreach($cart as $product){
-			$item = new Item();
-			$item->setName($product->name)
-					 ->setCurrency($this->currency)
-					 ->setSku($product->slug)
-					 ->setDescription($product->extract)
-					 ->setQuantity($product->quantity)
-					 ->setPrice($product->price);
-
-			$items[] = $item;
-			$this->subtotal += $product->quantity * $product->price;
-		}
-			
-		return $items;
+            $this->subtotal += $product->quantity * $product->price;
+            $items[] = $item;
+            return $items;
+        }, []);
 	}
 
-	private function saveOrder()
+    private function saveOrder()
 	{
-			$cart = \Session::get('cart');
+        $cart = \Session::get('cart');
 	    $subtotal = 0;
 
-	    foreach($cart as $item){
-	        $subtotal += $item->price * $item->quantity;
-	    }
-	    
-	    $order = Order::create([
-				'subtotal' => $subtotal,
-				'shipping' => $this->setShipping,
-				'user_id' => \Auth::user()->id
-	    ]);
-	    
-	    foreach($cart as $item) {
-				$this->saveOrderItem($item, $order->id);
-	    }
+        collect($cart)->each(function ($item) use (&$subtotal) {
+            $subtotal += $item->price * $item->quantity;
+        });
 
-			\Session::forget('cart');
+        $order = Order::create([
+            'subtotal' => $subtotal,
+            'shipping' => $this->setShipping,
+            'user_id' => \Auth::user()->id
+	    ]);
+
+        collect($cart)->each(function ($item) use (&$order) {
+            $this->saveOrderItem($item, $order->id);
+        });
+
+        \Session::forget('cart');
 	}
-	
-	private function saveOrderItem($item, $order_id)
+
+    private function saveOrderItem($item, $order_id)
 	{
 		OrderItem::create([
 			'quantity' => $item->quantity,
@@ -180,18 +179,9 @@ class PaypalController extends BaseController
 		]);
 	}
 
-	private function sendMailUser()
+    private function sendMailUser()
 	{
-		$date = new DateTime();
-		$order = App\Order::orderBy('id','desc')->first();
-		$orderItems = App\OrderItem::where('order_id', $order->id)->orderBy('id','desc')->get();
-		$user = \Auth::user();
-		$pathPdf = 'storage/pdf/factura-' . $date->format('Y-m-d h-m-s') . ''.pdf'';
-
-		$user = \Auth::user();
-		$order = App\Order::orderBy('id','desc')->first();
-		$orderItems = App\OrderItem::where('order_id', $order->id)->orderBy('id','desc')->get();		
-		PDF::loadView('emails.pdf', compact('user', 'order', 'orderItems'))->save($pathPdf); 
- 		Mail::to($user->email)->send(new OrderShipped($user, $pathPdf));
+        $user = \Auth::user();
+ 		\Mail::to($user->email)->send(new OrderShipped($user));
 	}
 }

@@ -21,7 +21,7 @@
     <link href="{{ asset('bootstrap-star-rating/css/star-rating.css') }}" media="all" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    @php setlocale(LC_MONETARY, 'es_ES') @endphp
+
     @include('store.partials.nav')
 
     <div class="container">

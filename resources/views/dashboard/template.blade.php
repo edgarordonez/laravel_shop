@@ -23,7 +23,6 @@
 
 </head>
 <body>
-  @php setlocale(LC_MONETARY, 'es_ES') @endphp
   @include('dashboard.partials.nav')
 
   <div class="container">

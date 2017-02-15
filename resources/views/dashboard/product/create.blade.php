@@ -6,7 +6,7 @@
   </h1>
   <div class="row text-center">
     <div class="col-md-offset-3 col-md-6">
-      @include('dashboard.partials.errors')    
+      @include('common.errors')
       <div class="well">
         {!! Form::open(['route'=>'product.store']) !!}
             @include('dashboard.product.form')

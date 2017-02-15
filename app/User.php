@@ -18,7 +18,7 @@ class User extends Authenticatable
      */
     public function orders()
     {
-        return $this->hasMany('App\Order');
+        return $this->hasMany(Order::class);
     }
 
     /**
@@ -26,6 +26,6 @@ class User extends Authenticatable
      */
     public function comments()
     {
-        return $this->hasMany('App\Comments');
+        return $this->hasMany(Comments::class);
     }
 }

@@ -1,8 +1,7 @@
 @extends('dashboard.template')
 
 @section('content')
-@include('dashboard.partials.message')
-
+@include('common.message')
     <h1 class="text-center">
       Usuarios
       <a href="{{ route('user.create') }}" class="btn btn-default"><i class="fa fa-plus-circle"></i> Añadir usuario</a>

@@ -1,7 +1,7 @@
 @extends('dashboard.template')
 
 @section('content')
-@include('dashboard.partials.message')
+@include('common.message')
 
     <h1 class="text-center">
       Categorías

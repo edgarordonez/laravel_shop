@@ -19,17 +19,17 @@
               </tr>
             </thead>
             <tbody>
+            @foreach($order->order_items as $order_item)
               <tr>
-                @foreach($order->order_items as $order_item)
                   <td>
                     <img src="{{ $order_item->product->image }}" alt="{{ $order_item->product->name }}" width='150' />
                   </td>
                   <td>{{ $order_item->product->name }}</td>
                   <td>{{ $order_item->product->price }}</td>
                   <td>{{ $order_item->quantity }}</td>
-                  <td>{{ $order_item->price }}</td>        
-                @endforeach
+                  <td>{{ $order_item->price }}</td>
               </tr>
+            @endforeach
             </tbody>
           </table>
         </div>

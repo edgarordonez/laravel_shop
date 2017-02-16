@@ -1,7 +1,7 @@
 const elixir = require('laravel-elixir');
 
 require('laravel-elixir-vue-2');
-
+require('laravel-elixir-browsersync-official');
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -14,6 +14,20 @@ require('laravel-elixir-vue-2');
  */
 
 elixir((mix) => {
-    mix.sass('app.scss')
-       .webpack('app.js');
+    mix.sass('app.scss', 'public_html/css/')
+        .webpack('app.js', 'public_html/js/')
+        .browserSync({
+            files: [
+                'public_html/css/*.css',
+                'resources/views/**/*.blade.php',
+                'resources/assets/js/components/*.vue',
+                'app/**/*.php'
+            ],
+            proxy: 'http://shop.app',
+            logPrefix: "Laravel Eixir BrowserSync",
+            logConnections: false,
+            reloadOnRestart: false,
+            notify: true,
+            open: true
+        });
 });

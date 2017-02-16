@@ -39,6 +39,9 @@
 <!-- Main JS -->
 <script src="{{ asset('js/main.js') }}"></script>
 
+<!-- VUE JS -->
+<script src="{{ elixir('js/app.js') }}"></script>
+
 <!-- Star Rating JS -->
 <script src="{{ asset('bootstrap-star-rating/js/star-rating.js') }}" type="text/javascript"></script>
 </body>

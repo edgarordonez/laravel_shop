@@ -19,21 +19,21 @@ class CommentsTableSeeder extends Seeder
         $data = array(
             [
                 "user_id" => 1,
-                "commentable_id" => "6", 
-                "commentable_type" => "App\Products", 
+                "commentable_id" => "6",
+                "commentable_type" => "App\Products",
                 "message" => "Buena compra, estupenda relación calidad precio. Buen servicio y entrega rapida.",
-				"rating" => 5,
+                "rating" => 5,
                 "created_at" => new DateTime,
-				"updated_at" => new DateTime
+                "updated_at" => new DateTime
             ],
             [
                 "user_id" => 2,
-                "commentable_id" => "5", 
-                "commentable_type" => "App\Products", 
+                "commentable_id" => "5",
+                "commentable_type" => "App\Products",
                 "message" => "Buena compra, estupenda relación calidad precio. Buen servicio y entrega rapida.",
-				"rating" => 5,
+                "rating" => 5,
                 "created_at" => new DateTime,
-				"updated_at" => new DateTime
+                "updated_at" => new DateTime
             ],
             [
                 "user_id" => 3,
@@ -41,20 +41,20 @@ class CommentsTableSeeder extends Seeder
                 "commentable_type" => "App\Products",
                 "message" => "La recomiendo!",
                 "rating" => 2,
-				"created_at" => new DateTime,
-				"updated_at" => new DateTime
-            ], 
+                "created_at" => new DateTime,
+                "updated_at" => new DateTime
+            ],
             [
                 "user_id" => 4,
                 "commentable_id" => "5",
                 "commentable_type" => "App\Products",
                 "message" => "La recomiendo!",
                 "rating" => 2,
-				"created_at" => new DateTime,
-				"updated_at" => new DateTime
+                "created_at" => new DateTime,
+                "updated_at" => new DateTime
             ],
         );
 
-        DB::table('comments')->insert($data);        
+        DB::table('comments')->insert($data);
     }
 }

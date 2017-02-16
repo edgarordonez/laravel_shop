@@ -21,7 +21,7 @@ body {
 }
 
 .rating-disabled .rating {
-    cursor: default!important;
+    cursor: default !important;
 }
 
 .hero-spacer {

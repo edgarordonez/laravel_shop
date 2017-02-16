@@ -29,9 +29,9 @@
 <div class="form-group">
     <label for="color">Color:</label>
     @if(isset($category))
-    <input type="color" name="color" class="form-control" value="{{ $category->color }}">                
+        <input type="color" name="color" class="form-control" value="{{ $category->color }}">
     @else
-    <input type="color" name="color" class="form-control">                
+        <input type="color" name="color" class="form-control">
     @endif
 </div>
 

@@ -17,7 +17,7 @@
 |
 */
 
-require __DIR__.'/../bootstrap/autoload.php';
+require __DIR__ . '/../bootstrap/autoload.php';
 /*
 |--------------------------------------------------------------------------
 | Turn On The Lights
@@ -30,10 +30,10 @@ require __DIR__.'/../bootstrap/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once __DIR__ . '/../bootstrap/app.php';
 
 // set the public path to this directory
-$app->bind('path.public', function() {
+$app->bind('path.public', function () {
     return __DIR__;
 });
 /*

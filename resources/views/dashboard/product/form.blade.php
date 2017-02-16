@@ -1,6 +1,6 @@
 <div class="form-group">
-  <label class="control-label" for="category_id">Categoría</label>
-  {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
+    <label class="control-label" for="category_id">Categoría</label>
+    {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group">
@@ -58,35 +58,35 @@
 </div>
 
 <div class="form-group">
-<label for="image">Imagen:</label>
+    <label for="image">Imagen:</label>
 
-{!! 
-    Form::text(
-        'image', 
-        null, 
-        array(
-            'class'=>'form-control',
-            'placeholder' => 'Ingresa la url de la imagen...',
+    {!!
+        Form::text(
+            'image',
+            null,
+            array(
+                'class'=>'form-control',
+                'placeholder' => 'Ingresa la url de la imagen...',
+            )
         )
-    ) 
-!!}
-</div>        
+    !!}
+</div>
 
 <div class="form-group">
-<label for="visible">Visible:</label>
-@php 
-    $value = (isset($product)) ? ($product->visible == 1) ? true : null : null;
-@endphp
-{!! 
-    Form::checkbox(
-        'visible', 
-        $value,
-        array(
-            'class' => 'form-control',
+    <label for="visible">Visible:</label>
+    @php
+        $value = (isset($product)) ? ($product->visible == 1) ? true : null : null;
+    @endphp
+    {!!
+        Form::checkbox(
+            'visible',
+            $value,
+            array(
+                'class' => 'form-control',
+            )
         )
-    ) 
-!!}
-</div>                       
+    !!}
+</div>
 
 <div class="form-group">
     {!! Form::submit('Guardar', array('class'=>'btn btn-success')) !!}

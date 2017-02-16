@@ -56,7 +56,7 @@ class UserTableSeeder extends Seeder
                 'address' => 'Carrer de l\'escorial, 20, Torelló, Barcelona',
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
-            ]                        
+            ]
         );
 
         DB::table('users')->insert($data);

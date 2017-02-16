@@ -21,8 +21,8 @@ class OrderShipped extends Mailable
     {
         $this->user = $user;
         $date = new \DateTime();
-        $order = Order::orderBy('id','desc')->first();
-        $orderItems = OrderItem::where('order_id', $order->id)->orderBy('id','desc')->get();
+        $order = Order::orderBy('id', 'desc')->first();
+        $orderItems = OrderItem::where('order_id', $order->id)->orderBy('id', 'desc')->get();
 
         $pdf = \PDF::loadView('emails.pdf', compact('user', 'order', 'orderItems'));
         $this->pathForPDF = 'facturas/factura-' . $date->format('Y-m-d-H:i:s') . '.pdf';
@@ -39,9 +39,9 @@ class OrderShipped extends Mailable
     {
         $pdf = \Storage::get($this->pathForPDF);
         return $this->view('emails.orderShipped')
-                    ->subject('OrderShipped')
-                    ->attachData($pdf, 'factura', [
-                        'mime' => 'application/pdf',
-                    ]);
+            ->subject('OrderShipped')
+            ->attachData($pdf, 'factura', [
+                'mime' => 'application/pdf',
+            ]);
     }
 }

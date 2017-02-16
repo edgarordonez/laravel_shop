@@ -25,7 +25,7 @@ class OrdersTableSeeder extends Seeder
                 "user_id" => 2,
                 "created_at" => new DateTime,
                 "updated_at" => new DateTime
-            ],            
+            ],
             [
                 "subtotal" => 774.99,
                 "shipping" => 5.75,
@@ -39,9 +39,9 @@ class OrdersTableSeeder extends Seeder
                 "user_id" => 4,
                 "created_at" => new DateTime,
                 "updated_at" => new DateTime
-            ]              
+            ]
         );
-        
-        DB::table('orders')->insert($data);  
+
+        DB::table('orders')->insert($data);
     }
 }

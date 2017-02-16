@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class OrderItem extends Model
 {
     protected $fillable = ['price', 'quantity', 'product_id', 'order_id'];
-    
+
     public $timestamps = false;
 
     /**
@@ -24,5 +24,5 @@ class OrderItem extends Model
     public function product()
     {
         return $this->belongsTo(Products::class);
-    }    
+    }
 }

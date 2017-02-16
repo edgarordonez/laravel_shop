@@ -16,16 +16,16 @@
 | DEPENDENCY INJECTION
 |--------------------------------------------------------------------------
 */
-Route::bind('product', function($slug) {
-  return App\Products::where('slug', $slug)->first();
+Route::bind('product', function ($slug) {
+    return App\Products::where('slug', $slug)->first();
 });
 
-Route::bind('category', function($category) {
-  return App\Category::find($category);
+Route::bind('category', function ($category) {
+    return App\Category::find($category);
 });
 
-Route::bind('user', function($user) {
-  return App\User::find($user);
+Route::bind('user', function ($user) {
+    return App\User::find($user);
 });
 
 /*
@@ -40,96 +40,57 @@ Auth::routes();
 | HOME
 |--------------------------------------------------------------------------
 */
-Route::get('/', [
-  'as' => 'home',
-  'uses' => 'StoreController@index'
-]); 
+Route::name('home')->get('/', 'StoreController@index');
 
 /*
 |--------------------------------------------------------------------------
 | DETAIL PRODUCT
 |--------------------------------------------------------------------------
 */
-Route::get('product/{product}', [
-  'as' => 'product-detail',
-  'uses' => 'StoreController@show'
-]);
+Route::name('product-detail')->get('product/{product}', 'StoreController@show');
 
 /*
 |--------------------------------------------------------------------------
 | COMMENTS
 |--------------------------------------------------------------------------
 */
-Route::post('comments/{product}/{user}', [
-  'as' => 'comments-product',
-  'uses' => 'CommentsController@store'
-]);
+Route::name('comments-product')->post('comments/{product}/{user}', 'CommentsController@store');
 
 /*
 |--------------------------------------------------------------------------
 | CART
 |--------------------------------------------------------------------------
 */
-Route::get('cart/show', [
-  'as' => 'cart-show',
-  'uses' => 'CartController@show'
-]);
+Route::name('cart-show')->get('cart/show', 'CartController@show');
 
-Route::get('cart/add/{product}', [
-  'as' => 'cart-add',
-  'uses' => 'CartController@add'
-]);
+Route::name('cart-add')->get('cart/add/{product}', 'CartController@add');
 
-Route::post('cart/update/{product}/{quantity?}', [
-  'as' => 'cart-update',
-  'uses' => 'CartController@update'
-]);
+Route::name('cart-update')->post('cart/update/{product}/{quantity?}', 'CartController@update');
 
-Route::get('cart/delete/{product}', [
-  'as' => 'cart-delete',
-  'uses' => 'CartController@delete'
-]);
+Route::name('cart-delete')->get('cart/delete/{product}', 'CartController@delete');
 
-Route::get('cart/remove', [
-  'as' => 'cart-remove',
-  'uses' => 'CartController@remove'
-]);
+Route::name('cart-remove')->get('cart/remove', 'CartController@remove');
 
 /*
 |--------------------------------------------------------------------------
 | PAYPAL
 |--------------------------------------------------------------------------
 */
-Route::get('payment', array(
-	'as' => 'payment',
-	'uses' => 'PaypalController@postPayment',
-));
+Route::name('payment')->get('payment', 'PaypalController@postPayment');
 
-Route::get('payment/status', array(
-	'as' => 'payment.status',
-	'uses' => 'PaypalController@getPaymentStatus',
-));
+Route::name('payment.status')->get('payment/status', 'PaypalController@getPaymentStatus');
 
 /*
 |--------------------------------------------------------------------------
 | DASHBOARD
 |--------------------------------------------------------------------------
 */
-Route::group(['namespace' => 'Dashboard', 'middleware' => ['AuthDashboard'], 'prefix' => 'dashboard'], function() {
-  Route::get('/', function() {
-    return view('dashboard.home');
-  })->name('dashboard');
-
-  Route::resource('category', 'CategoryController');  
-  Route::resource('product', 'ProductController');
-  Route::resource('user', 'UserController');
-  Route::resource('order', 'OrderController');
-});
-
-Route::get('email/pdf', function() {
-  $user = \Auth::user();
-  $order = App\Order::orderBy('id','desc')->first();
-  $orderItems = App\OrderItem::where('order_id', $order->id)->orderBy('id','desc')->get();
-
-  return view('emails.pdf', compact('user', 'order', 'orderItems'));
+Route::prefix('dashboard')->namespace('Dashboard')->middleware('AuthDashboard')->group(function () {
+    Route::name('dashboard')->get('/', function () {
+        return view('dashboard.home');
+    });
+    Route::resource('category', 'CategoryController');
+    Route::resource('product', 'ProductController');
+    Route::resource('user', 'UserController');
+    Route::resource('order', 'OrderController');
 });

@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('slug');
             $table->text('description');
             $table->string('extract', 300);
-            $table->decimal('price', 6,2);
+            $table->decimal('price', 6, 2);
             $table->string('image', 300);
             $table->integer('rating');
             $table->boolean('visible');

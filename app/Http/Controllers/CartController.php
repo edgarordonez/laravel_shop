@@ -14,8 +14,8 @@ class CartController extends Controller
      */
     public function __construct()
     {
-        if(!Session::has('cart')) {
-           Session::put('cart', array());
+        if (!Session::has('cart')) {
+            Session::put('cart', array());
         }
     }
 
@@ -51,7 +51,7 @@ class CartController extends Controller
      */
     public function update(Products $product, $quantity)
     {
-        if($quantity <= 0) {
+        if ($quantity <= 0) {
             $response = array(
                 'status' => '400',
                 'msg' => 'error bad data'
@@ -117,8 +117,7 @@ class CartController extends Controller
     private function getCurrentStateCart()
     {
         $cart = $this->getCart();
-        return collect($cart)->reduce(function ($currentStateCart, $product)
-        {
+        return collect($cart)->reduce(function ($currentStateCart, $product) {
             $currentStateCart['total'] += $product->price * $product->quantity;
             $currentStateCart['itemsQuantity'] += $product->quantity;
             return $currentStateCart;

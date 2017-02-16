@@ -35,9 +35,9 @@ class OrderItemsTableSeeder extends Seeder
                 "price" => 623.99,
                 "product_id" => 6,
                 "order_id" => 2
-            ] 
+            ]
         );
-        
-        DB::table('order_items')->insert($data); 
+
+        DB::table('order_items')->insert($data);
     }
 }

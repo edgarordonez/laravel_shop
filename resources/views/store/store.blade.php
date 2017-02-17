@@ -3,6 +3,9 @@
 @section('content')
     @include('store.partials.slider')
     <div class="row">
+        <div id="app">
+            <example></example>
+        </div>
         <div class="col-lg-12">
             <h3>Nuestros productos</h3>
         </div>

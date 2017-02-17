@@ -30,14 +30,11 @@
 
     @include('store.partials.footer')
 </div>
-<!-- jQuery -->
-<script src="{{ asset('js/jquery.js') }}"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<!-- JS -->
+<script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
 
 <!-- Main JS -->
-<script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('js/main.js') }}" type="text/javascript"></script>
 
 <!-- Star Rating JS -->
 <script src="{{ asset('bootstrap-star-rating/js/star-rating.js') }}" type="text/javascript"></script>

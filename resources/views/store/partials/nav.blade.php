@@ -29,6 +29,12 @@
                                 </li>
                             @endif
                             <li>
+                                <a href="{{ url('/chat') }}">
+                                    <i class="fa fa-question-circle"></i>
+                                    Chat
+                                </a>
+                            </li>
+                            <li>
                                 <a
                                         href="{{ url('/logout') }}"
                                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

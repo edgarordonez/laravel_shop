@@ -1,5 +1,5 @@
 let mix = require('laravel-mix').mix;
-
+let BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -10,6 +10,23 @@ let mix = require('laravel-mix').mix;
  | file for the application as well as bundling up all the JS files.
  |
  */
-mix.setPublicPath('public_html');
-mix.js('resources/assets/js/app.js', 'js')
+mix.webpackConfig({
+    plugins: [
+        new BrowserSyncPlugin({
+            files: [
+                'public_html/css/*.css',
+                'resources/views/**/*.blade.php',
+                'resources/assets/js/components/*.vue',
+                'app/**/*.php'
+            ],
+            proxy: 'http://shop.app',
+            logPrefix: "Laravel Eixir BrowserSync",
+            logConnections: false,
+            reloadOnRestart: false,
+            notify: true,
+            open: true
+        })
+    ]
+}).setPublicPath('public_html')
+    .js('resources/assets/js/app.js', 'js')
     .sass('resources/assets/sass/app.scss', 'css');

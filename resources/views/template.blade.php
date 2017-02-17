@@ -9,16 +9,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'ON WHEELS')</title>
 
-    <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <!-- Bootstrap Core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Star rating CSS -->
+    <link href="{{ asset('bootstrap-star-rating/css/star-rating.css') }}" media="all" rel="stylesheet" type="text/css"/>
+
     <!-- Custom CSS -->
     <link href="{{ asset('css/heroic-features.css') }}" rel="stylesheet">
-
-    <link href="{{ asset('bootstrap-star-rating/css/star-rating.css') }}" media="all" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 
@@ -29,7 +30,6 @@
 
     @include('store.partials.footer')
 </div>
-
 <!-- jQuery -->
 <script src="{{ asset('js/jquery.js') }}"></script>
 
@@ -38,9 +38,6 @@
 
 <!-- Main JS -->
 <script src="{{ asset('js/main.js') }}"></script>
-
-<!-- VUE JS -->
-<script src="{{ elixir('js/app.js') }}"></script>
 
 <!-- Star Rating JS -->
 <script src="{{ asset('bootstrap-star-rating/js/star-rating.js') }}" type="text/javascript"></script>

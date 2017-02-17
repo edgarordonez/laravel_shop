@@ -1,5 +1,5 @@
 <template>
-    <h2>VUE EXAMPLE</h2>
+    <h1>HOLA GRUPO!</h1>
 </template>
 
 <script>
@@ -9,3 +9,7 @@
         }
     }
 </script>
+
+<style>
+
+</style>

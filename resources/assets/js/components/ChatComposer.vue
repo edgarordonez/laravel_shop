@@ -7,16 +7,17 @@
 
 <script>
     export default {
-        data() {
+        props: ['message', 'user'],
+        data () {
             return {
                 messageText: ''
             }
         },
         methods: {
-            sendMessage() {
+            sendMessage () {
                 this.$emit('messagesent', {
                     message: this.messageText,
-                    user: 'Edgar Ordóñez'
+                    user: this.user
                 });
                 this.messageText = '';
             }

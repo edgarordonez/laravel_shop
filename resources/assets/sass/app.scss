@@ -7,3 +7,102 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+/*
+ * Start Bootstrap - Heroic Features (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+body {
+  padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+#carousel-example-generic {
+  margin: 50px 0;
+}
+
+.row.detail {
+  margin-top: 50px;
+}
+
+.ratings .rating-xs {
+  display: inline-block;
+}
+
+.rating-disabled .rating {
+  cursor: default !important;
+}
+
+.hero-spacer {
+  margin-top: 50px;
+}
+
+.chat-container {
+  margin-top: 50px;
+}
+
+.hero-feature {
+  margin-bottom: 30px;
+}
+
+footer {
+  margin: 50px 0;
+}
+
+@media (max-width: 768px) {
+  .navbar-collapse.pull-right {
+    float: none !important;
+  }
+}
+
+// DASHBOARD
+a.customlink {
+  color: #ffffff;
+}
+a.customlink:hover {
+  text-decoration: none!important;
+}
+.flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  justify-content: center;
+}
+
+.flex-item {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  background: rgba(33, 150, 243, 0.82);
+  border-radius: 10px;
+  padding: 5px;
+  width: 272px;
+  height: 272px;
+  margin: 10px 0;
+  color: #ffffff;
+  font-size: 2.5em;
+  text-align: center;
+  cursor: pointer;
+}
+
+i {
+  margin-right: 10px;
+}
+
+@media (min-width: 768px) {
+  .flex-item {
+    margin: 50px 6px;
+  }
+}

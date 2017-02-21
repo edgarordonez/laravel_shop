@@ -5,38 +5,51 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require('./bootstrap')
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
-Vue.component('example', require('./components/Example.vue'));
-Vue.component('chat-message', require('./components/ChatMessage.vue'));
-Vue.component('chat-log', require('./components/ChatLog.vue'));
-Vue.component('chat-composer', require('./components/ChatComposer.vue'));
+Vue.component('chat-message', require('./components/ChatMessage.vue'))
+Vue.component('chat-log', require('./components/ChatLog.vue'))
+Vue.component('chat-composer', require('./components/ChatComposer.vue'))
 
 const app = new Vue({
     el: '#chat',
     data: {
-        messages: [
-            {
-                message: 'Hola buenas, tengo una duda sobre una bicicleta.',
-                user: "Sergi Moreno"
-            },
-            {
-                message: 'Hola, bienvenido a On wheels. Dime, a ver si podemos ayudarte.',
-                user: "Edgar Ordóñez"
-            }
-        ]
+        messages: [],
+        usersInRoom: []
     },
     methods: {
-        addMessage(message) {
-            // Add to existing messages
+        addMessage (message) {
             this.messages.push(message);
-            // Persist to the database etc
+            axios.post('/messages', message).then(response => {
+                //
+            })
         }
+    },
+    created () {
+        axios.get('/messages').then(response => {
+            this.messages = response.data;
+        })
+
+        window.Echo.join('chatroom')
+            .here((users) => {
+                this.usersInRoom = users
+            })
+            .joining((user) => {
+                this.usersInRoom.push(user)
+            })
+            .leaving((user) => {
+                this.usersInRoom = this.usersInRoom.filter(u => u != user)
+            })
+            .listen('.App.Events.MessagePosted', (event) => {
+                this.messages.push({
+                    message: event.message.message,
+                    user: event.user
+                })
+            })
     }
-});
+})

@@ -1,13 +1,21 @@
 <template>
-    <div class="chat-message">
+    <div class="chat-message" :class="{me: me}">
         <p>{{ message.message }}</p>
-        <small>{{ message.user }}</small>
+        <small>{{ message.user.name }}</small>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['message']
+        props: ['message', 'user'],
+        data () {
+            return {
+                me: this.message.user.id === this.user.id
+            }
+        },
+        mounted () {
+            document.querySelector('.chat-log').scrollTop = document.querySelector('.chat-log').scrollHeight
+        }
     }
 </script>
 
@@ -17,6 +25,11 @@
         background-color: #fff;
         border-radius: 5px;
         margin-bottom: 10px;
+    }
+    .chat-message.me {
+        text-align: right;
+        color: #fff;
+        background-color: rgba(61, 185, 236, 0.62)!important;
     }
     .chat-message > p {
         margin-bottom: .5rem;

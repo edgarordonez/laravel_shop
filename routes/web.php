@@ -87,6 +87,8 @@ Route::name('payment.status')->get('payment/status', 'PaypalController@getPaymen
 */
 Route::middleware('auth')->group(function () {
     Route::name('chat')->get('chat', 'ChatController@index');
+    Route::name('messages')->get('messages', 'ChatController@show');
+    Route::name('messages')->post('messages', 'ChatController@create');
 });
 
 /*

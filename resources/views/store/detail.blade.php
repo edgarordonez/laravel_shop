@@ -11,8 +11,8 @@
             <div class="thumbnail">
                 <div class="caption-full">
                     <div class="col-md-12">
-                        <h4 class="pull-left"><a href="#">{{ $product->name }}</a></h4>
-                        <h4 class="pull-right">{{ money_format('%.2n', $product->price) }}€</h4>
+                        <h4><a href="javascript::void(0)">{{ $product->name }}</a></h4>
+                        <h4>{{ money_format('%.2n', $product->price) }}€</h4>
                     </div>
 
                     <div class="col-md-12">

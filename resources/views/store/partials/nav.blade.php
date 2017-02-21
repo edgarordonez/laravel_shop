@@ -15,6 +15,21 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
+                <li>
+                    <a href="{{ route('cart-show') }}">
+                        <i class="fa fa-shopping-cart"></i>
+                        Mi carrito
+                        @if(!empty($cart))
+                            @php
+                                $value = 0;
+                                foreach($cart as $item) {
+                                    $value += $item->quantity;
+                                }
+                            @endphp
+                            <span class="badge">{{ $value }}</span>
+                        @endif
+                    </a>
+                </li>
                 @if(Auth::check())
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -58,21 +73,6 @@
                         </ul>
                     </li>
                 @endif
-                <li>
-                    <a href="{{ route('cart-show') }}">
-                        <i class="fa fa-shopping-cart"></i>
-                        Mi carrito
-                        @if(!empty($cart))
-                            @php
-                                $value = 0;
-                                foreach($cart as $item) {
-                                    $value += $item->quantity;
-                                }
-                            @endphp
-                            <span class="badge">{{ $value }}</span>
-                        @endif
-                    </a>
-                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

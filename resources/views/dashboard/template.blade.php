@@ -9,18 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'ON WHEELS')</title>
 
+    <!-- CSS -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Bootstrap Core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="{{ asset('css/heroic-features.css') }}" rel="stylesheet">
-
-    <!-- Custom CSS DASH -->
-    <link href="{{ asset('css/dashboard/main.css') }}" rel="stylesheet">
-
 </head>
 <body>
 @include('dashboard.partials.nav')
@@ -31,10 +26,7 @@
     @include('dashboard.partials.footer')
 </div>
 
-<!-- jQuery -->
-<script src="{{ asset('js/jquery.js') }}"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<!-- JS -->
+<script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
 </body>
 </html>

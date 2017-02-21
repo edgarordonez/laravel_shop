@@ -1,5 +1,6 @@
 let mix = require('laravel-mix').mix;
 let BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management

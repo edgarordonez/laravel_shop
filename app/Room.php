@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model
+class Room extends Model
 {
-    protected $fillable = ['message', 'room_id', 'user_id'];
+    protected $fillable = ['room', 'user_id'];
 
     /**
      * @return mixed
@@ -19,8 +19,8 @@ class Message extends Model
     /**
      * @return mixed
      */
-    public function room()
+    public function messages()
     {
-        return $this->belongsTo(Room::class);
+        return $this->hasMany(Message::class);
     }
 }

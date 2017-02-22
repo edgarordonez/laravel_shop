@@ -42,13 +42,14 @@
                                         Dashboard
                                     </a>
                                 </li>
-                            @endif
+                            @else
                             <li>
                                 <a href="{{ url('/chat') }}">
                                     <i class="fa fa-question-circle"></i>
                                     Chat
                                 </a>
                             </li>
+                            @endif
                             <li>
                                 <a
                                         href="{{ url('/logout') }}"

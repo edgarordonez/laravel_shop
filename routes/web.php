@@ -61,24 +61,27 @@ Route::name('comments-product')->post('comments/{product}/{user}', 'CommentsCont
 | CART
 |--------------------------------------------------------------------------
 */
-Route::name('cart-show')->get('cart/show', 'CartController@show');
+Route::prefix('cart')->group(function () {
+    Route::name('cart-show')->get('/', 'CartController@show');
 
-Route::name('cart-add')->get('cart/add/{product}', 'CartController@add');
+    Route::name('cart-add')->get('add/{product}', 'CartController@add');
 
-Route::name('cart-update')->post('cart/update/{product}/{quantity?}', 'CartController@update');
+    Route::name('cart-update')->post('update/{product}/{quantity?}', 'CartController@update');
 
-Route::name('cart-delete')->get('cart/delete/{product}', 'CartController@delete');
+    Route::name('cart-delete')->get('delete/{product}', 'CartController@delete');
 
-Route::name('cart-remove')->get('cart/remove', 'CartController@remove');
+    Route::name('cart-remove')->get('remove', 'CartController@remove');
+});
 
 /*
 |--------------------------------------------------------------------------
 | PAYPAL
 |--------------------------------------------------------------------------
 */
-Route::name('payment')->get('payment', 'PaypalController@postPayment');
-
-Route::name('payment.status')->get('payment/status', 'PaypalController@getPaymentStatus');
+Route::prefix('payment')->group( function () {
+    Route::name('payment')->get('/', 'PaypalController@postPayment');
+    Route::name('payment.status')->get('status', 'PaypalController@getPaymentStatus');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -87,8 +90,10 @@ Route::name('payment.status')->get('payment/status', 'PaypalController@getPaymen
 */
 Route::middleware('auth')->group(function () {
     Route::name('chat')->get('chat', 'ChatController@index');
-    Route::name('messages')->get('messages', 'ChatController@show');
-    Route::name('messages')->post('messages', 'ChatController@create');
+
+    Route::name('messages')->get('messages/{room}', 'ChatController@show');
+
+    Route::name('messages')->post('messages/{room}', 'ChatController@create');
 });
 
 /*
@@ -101,7 +106,14 @@ Route::prefix('dashboard')->namespace('Dashboard')->middleware('AuthDashboard')-
         return view('dashboard.home');
     });
     Route::resource('category', 'CategoryController');
+
     Route::resource('product', 'ProductController');
+
     Route::resource('user', 'UserController');
+
     Route::resource('order', 'OrderController');
+
+    Route::name('chat')->get('chat', 'ChatController@index');
+
+    Route::name('chat-user')->get('chat/{room}', 'ChatController@room');
 });

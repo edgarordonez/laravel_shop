@@ -29,7 +29,7 @@
     .chat-message.me {
         text-align: right;
         color: #fff;
-        background-color: rgba(61, 185, 236, 0.62)!important;
+        background-color: #54aef2!important;
     }
     .chat-message > p {
         margin-bottom: .5rem;

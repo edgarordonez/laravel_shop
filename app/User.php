@@ -29,6 +29,17 @@ class User extends Authenticatable
         return $this->hasMany(Comments::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function room()
+    {
+        return $this->hasOne(Room::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function messages()
     {
         return $this->hasMany(Message::class);

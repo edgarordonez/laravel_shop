@@ -15,11 +15,13 @@
         },
         methods: {
             sendMessage () {
-                this.$emit('messagesent', {
-                    message: this.messageText,
-                    user: this.user
-                });
-                this.messageText = '';
+                if (this.messageText.trim() !== '') {
+                    this.$emit('messagesent', {
+                        message: this.messageText,
+                        user: this.user
+                    });
+                    this.messageText = '';
+                }
             }
         }
     }

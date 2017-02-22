@@ -57,6 +57,9 @@ footer {
 }
 
 // DASHBOARD
+.title-dashboard {
+  display: block;
+}
 a.customlink {
   color: #ffffff;
 }
@@ -67,6 +70,8 @@ a.customlink:hover {
   padding: 0;
   margin: 0;
   list-style: none;
+  flex-direction: column;
+  align-items: center;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -77,19 +82,13 @@ a.customlink:hover {
 }
 
 .flex-item {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  -webkit-flex-flow: column wrap;
   justify-content: center;
   align-items: center;
   background: rgba(33, 150, 243, 0.82);
   border-radius: 10px;
   padding: 5px;
   width: 272px;
-  height: 272px;
   margin: 10px 0;
   color: #ffffff;
   font-size: 2.5em;
@@ -102,7 +101,11 @@ i {
 }
 
 @media (min-width: 768px) {
+  .flex-container {
+    flex-direction: row;
+  }
   .flex-item {
     margin: 50px 6px;
+    height: 272px;
   }
 }

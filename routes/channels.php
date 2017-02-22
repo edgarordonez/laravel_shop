@@ -14,6 +14,6 @@ Broadcast::channel('App.User.*', function ($user, $userId) {
     return (int) $user->id === (int) $userId;
 });
 
-Broadcast::channel('chatroom', function ($user) {
-    return $user;
+Broadcast::channel('chatroom.{room}', function ($user, $room) {
+    return (int) $user->id === (int) $room || $user->type == 'admin';
 });

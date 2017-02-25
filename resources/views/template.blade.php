@@ -11,12 +11,6 @@
 
     <!-- CSS -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    
-    <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- Bootstrap Core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet">
 
     <!-- Star rating CSS -->
     <link href="{{ asset('bootstrap-star-rating/css/star-rating.css') }}" media="all" rel="stylesheet" type="text/css"/>
@@ -33,10 +27,11 @@
 <!-- JS -->
 <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
 
-<!-- Main JS -->
-<script src="{{ asset('js/main.js') }}" type="text/javascript"></script>
-
 <!-- Star Rating JS -->
 <script src="{{ asset('bootstrap-star-rating/js/star-rating.js') }}" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $('.ratingProduct').rating({displayOnly: true})
+</script>
 </body>
 </html>

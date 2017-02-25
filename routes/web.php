@@ -68,7 +68,7 @@ Route::prefix('cart')->group(function () {
 
     Route::name('cart-update')->post('update/{product}/{quantity?}', 'CartController@update');
 
-    Route::name('cart-delete')->get('delete/{product}', 'CartController@delete');
+    Route::name('cart-delete')->post('delete/{product}', 'CartController@delete');
 
     Route::name('cart-remove')->get('remove', 'CartController@remove');
 });

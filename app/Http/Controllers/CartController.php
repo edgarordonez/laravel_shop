@@ -9,6 +9,7 @@ use App\Products;
 
 class CartController extends Controller
 {
+
     /**
      * CartController constructor.
      */
@@ -25,8 +26,8 @@ class CartController extends Controller
     public function show()
     {
         $cart = $this->getCart();
-        $currentTotalCart = $this->getCurrentStateCart()['total'];
-        return view('store.cart', compact('cart', 'currentTotalCart'));
+        $total = $this->getCurrentStateCart()['total'];
+        return view('store.cart', compact('cart', 'total'));
     }
 
     /**
@@ -47,7 +48,7 @@ class CartController extends Controller
     /**
      * @param Products $product
      * @param $quantity
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Products $product, $quantity)
     {
@@ -66,27 +67,35 @@ class CartController extends Controller
         $currentStatusCart = $this->getCurrentStateCart();
         $response = [
             'status' => '200',
-            'msg' => 'setting created successfully',
-            'data' => [
-                'total' => $currentStatusCart['total'],
-                'itemsQuantity' => $currentStatusCart['itemsQuantity']
-            ]
+            'msg' => 'item updated successfully',
+            'cart' => $cart,
+            'total' => $currentStatusCart['total'],
+            'itemsQuantity' => $currentStatusCart['itemsQuantity']
         ];
 
         return Response::json($response);
     }
 
+
     /**
      * @param Products $product
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function delete(Products $product)
     {
         $cart = $this->getCart();
         unset($cart[$product->slug]);
         $this->updateSessionCart($cart);
+        $currentStatusCart = $this->getCurrentStateCart();
+        $response = [
+            'status' => '200',
+            'msg' => 'setting created successfully',
+            'cart' => $cart,
+            'total' => $currentStatusCart['total'],
+            'itemsQuantity' => $currentStatusCart['itemsQuantity']
+        ];
 
-        return redirect()->route('cart-show');
+        return Response::json($response);
     }
 
     /**

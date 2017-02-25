@@ -6,7 +6,10 @@
 @import "variables";
 
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import url(https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css);
+
+// Font awesome
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
 
 /*
  * Start Bootstrap - Heroic Features (http://startbootstrap.com/)

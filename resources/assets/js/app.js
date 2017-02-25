@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -12,8 +11,13 @@ require('./bootstrap')
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-Vue.component('chat', require('./components/Chat.vue'))
+Vue.component('chat', require('./components/chat/Chat.vue'))
+Vue.component('cart', require('./components/cart/Cart.vue'))
 
-const app = new Vue({
-    el: '#vue'
+const chat = new Vue({
+    el: '#vue-chat'
+})
+
+const cart = new Vue({
+    el: '#vue-cart'
 })

@@ -1,3 +1,3 @@
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-## Simple shop with Laravel
+## Ecommerce with laravel 5.4
